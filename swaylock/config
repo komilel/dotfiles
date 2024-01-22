@@ -1,0 +1,38 @@
+# Swaylock config
+
+ignore-empty-password
+
+hide-keyboard-layout
+
+screenshots
+# image=$HOME/.config/wallpapers/TwoMascots.png
+
+clock
+timestr=%R
+datestr=%a, %e of %B
+
+fade-in=0.3
+
+effect-blur=10x2
+# effect-pixelate=5
+# effect-greyscale
+# effect-vignette=0.5:0.7
+
+indicator
+
+inside-color=#bf80ff
+inside-clear-color=#ffffff
+inside-wrong-color=#ff3300
+inside-ver-color=#1a8cff
+
+line-color=#000000
+
+ring-color=#ffb3ff
+ring-wrong-color=#ff5c33
+ring-ver-color=#80bfff
+ring-clear-color=#ffffff
+
+bs-hl-color=#ffffff
+key-hl-color=#ffb3cc
+
+text-color=#000000
