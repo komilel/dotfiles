@@ -1,0 +1,27 @@
+# In development
+
+"ui.background" = { fg = "foreground" } # No Background for transparency
+"ui.selection" = { fg = "foreground_highlight", bg = "background_highlight" }
+
+
+
+[palette]
+red = "#e15554"
+orange = "#f06d1b"
+yellow = "#f7b801"
+green = "#95bf74"
+blue = "#1661a8"
+white = "#ffeedd"
+black = "#0a0908"
+lavender = "#d8a7ca"
+cyan = "#c4e4ed"
+rich_black = "#0d1821"
+light_green = "#639fab"
+light_blue = "#8da9c4"
+sky_blue = "#6cc7d7"
+medium_blue = "#6874e8"
+foreground = "#9fc3d9"
+foreground_highlight = "#58bcf5"
+background = "#292929"
+# background_transparent = "#292929"
+background_highlight = "#2B2323"
