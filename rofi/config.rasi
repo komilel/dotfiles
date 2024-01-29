@@ -1,0 +1,132 @@
+// Default config for Rofi
+//             __ _ 
+//  _ __ ___  / _(_)
+// | '__/ _ \| |_| |
+// | | | (_) |  _| |
+// |_|  \___/|_| |_|                 
+
+// Configuration
+configuration {
+    modes: "drun,window,run";
+    font: "JetBrains Mono Nerd 11";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    display-drun: "Apps:";
+    display-window: "Window";
+    drun-display-format: "{name}";
+    hover-select: true;
+    me-select-entry: ""; 
+    me-accept-entry: "MousePrimary";
+    auto-select: false;
+}
+
+// No theme overlapping
+@theme "/dev/null"
+
+// Include colors from pywal
+@import "~/.cache/wal/colors-rofi.rasi"
+
+// Window
+window {
+    width: 700px;
+    margin: 0px;
+    padding: 0px;
+    border: 2px;
+    border-radius: 10px;
+    border-color: @color7;
+    background-color: transparent;
+    transparency: "real";
+}
+
+mainbox {
+    orientation: vertical;
+    spacing: 5px;
+    padding: 7px;
+    background-color: #000000c4;
+    // background-image: @current-wallpaper;   
+}
+
+// Input Bar
+inputbar {
+    spacing: 7px;
+    padding: 5px;
+    border: 2px;
+    border-color: @color5;
+    border-radius: 10px;
+    background-color: transparent;
+    text-color: @foreground;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: inherit;
+}
+
+entry {
+    background-color: transparent;
+    text-color: inherit;
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    cycle: true;
+    spacing: 3px;
+    // padding: 5px;
+    border: 0px;
+    background-color: transparent;
+    fixed-height: true;
+}
+
+// Element
+element {
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border-color: #ffffff;
+    border-radius: 10px;
+    border: 2px;
+    background-color: inherit;
+}
+
+element normal {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element selected {
+    background-color: @color9;
+    text-color: @foreground;
+}
+
+element-text {
+    padding: 1px;
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+}
+
+element-icon {
+    background-color: inherit;
+    cursor: inherit;
+    size: 32px;
+}
+
+// Messages
+error-message {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: @background;
+    text-color: @foreground;
+}
+
+textbox {
+    background-color: inherit;
+    text-color: inherit;
+    vertical-alignment: 0.5;
+    horizontal-alignment: 0.0;
+}
+
