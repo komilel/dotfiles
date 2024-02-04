@@ -26,6 +26,9 @@ configuration {
 // Include colors from pywal
 @import "~/.cache/wal/colors-rofi.rasi"
 
+// Include current wallpaper image
+@import "~/.cache/current_wallpaper.rasi"
+
 // Window
 window {
     width: 700px;
@@ -42,7 +45,7 @@ mainbox {
     orientation: vertical;
     spacing: 5px;
     padding: 7px;
-    background-color: #000000c4;
+    background-color: #000000c6;
     // background-image: @current-wallpaper;   
 }
 

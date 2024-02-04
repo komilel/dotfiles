@@ -1,3 +1,6 @@
+# Tokyo Night theme (https://github.com/zatchheems/tokyo-night-alacritty-theme), based on both:
+# https://github.com/ghifarit53/tokyonight-vim
+# https://github.com/enkia/tokyo-night-vscode-theme
 [colors.bright]
 black = "#444b6a"
 blue = "#7da6ff"

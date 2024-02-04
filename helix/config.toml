@@ -1,3 +1,17 @@
-# Init version of helix conf
+# Helix config by Komilel
 
 theme = "tokyonight_fork"
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["total-line-numbers", "file-name", "file-modification-indicator"]
+right = ["version-control", "diagnostics", "selections"]
+
+[editor.lsp]
+enable = true
+display-inlay-hints = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "block"

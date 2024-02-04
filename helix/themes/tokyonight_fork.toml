@@ -3,4 +3,4 @@
 
 inherits = "tokyonight"
 
-"ui.background" = { fg = "foreground" }
+"ui.background" = { fg = "foreground" } # Modified to make Helix transparent
