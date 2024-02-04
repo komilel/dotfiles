@@ -34,5 +34,5 @@ swww img "$random_wallpaper" \
         --transition-fps=60 \
         --transition-duration=1
 
-
-    
+# Relaunch waybar with new colors
+killall waybar && waybar

@@ -1,0 +1,178 @@
+//  __  __           _       _           
+// |  \/  | ___   __| |_   _| | ___  ___ 
+// | |\/| |/ _ \ / _` | | | | |/ _ \/ __|
+// | |  | | (_) | (_| | |_| | |  __/\__ \
+// |_|  |_|\___/ \__,_|\__,_|_|\___||___/
+// 
+// by Komi      
+
+{
+  // Hyprland modules configuration
+  "hyprland/workspaces": {
+    "format": "{id}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    },
+    "persistent-workspaces": {
+      "*": 5
+    },
+    "on-click": "activate",
+    "all-outputs": false
+  },
+  
+  "hyprland/window": {
+    "format": "{title}",
+    "all-outputs": true
+  },
+
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "en",
+    "format-ru": "ru"
+  },
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-theme": "Papirus-Dark",
+    "icon-size": 18,
+    "on-click": "activate",
+    "on-click-right": "close",
+    "ignore-list": [
+      "", // For spotify not having WM_CLASS
+      "Alacritty"
+    ]
+  },
+
+  "group/stats": {
+    "orientation": "inherit",
+    "modules": [
+      "cpu",
+      "memory",
+    ],
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+      "childer-class": "not-cpu"
+    }
+  },
+
+  "mpris": {
+    "player": "spotify",
+    "interval": 1,
+    "format": " {artist}: {title}",
+    "format-paused": " {artist}: {title} {status_icon} ",
+    "status-icons": {
+      "playing": "",
+      "paused": ""
+    },
+    "title-len": 20,
+    "tooltip-format-playing": " Playing: {artist}: {title} at {position} ({length})",
+    "tooltip-format-paused": " Paused: {artist}: {title} at {position} ({length})",
+    "ignored-players": ["chromium"]
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10,
+    "show-passive-items": true
+  },
+
+  "clock": {
+    "format": "{:󰥔 %I:%M %p}",
+    "format-alt": "{: %a, %d of %B}",
+    // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 2,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ba9790'><b><i>{}</i></b></span>",
+        "weekdays": "<span color='#908375'><b>{}</b></span>",
+        "today": "<span color='#fdfcdc'><b>{}</b></span>",
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  "cpu": {
+    "interval": 5,
+    "tooltip": false,
+    "format": " {usage}%"
+  },
+
+  "memory": {
+    "interval": 20,
+    "tooltip": false,
+    "format": " {used:0.1f}GB"
+  },
+
+  "temperature": {
+    "interval": 5,
+    "tooltip": false,
+    "format": "{temperatureC}°C",
+  },
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "interval": 2,
+    "tooltip": false,
+    "format": " {percent}%",
+  },
+
+  "battery": {
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "interval": 45,
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂅 {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
+  },
+
+  "network": {
+    "format-wifi": "󰤨",
+    "format-ethernet": "󰈁",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "󰤭",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format": "{essid}"
+  },
+
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {volume}",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol"
+  }
+}
