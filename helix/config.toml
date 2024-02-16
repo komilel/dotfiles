@@ -1,6 +1,6 @@
 # Helix config by Komilel
 
-theme = "tokyonight_fork"
+theme = "tokyonight"
 
 [editor.statusline]
 left = ["mode", "spinner"]

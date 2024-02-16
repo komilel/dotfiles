@@ -45,7 +45,7 @@ mainbox {
     orientation: vertical;
     spacing: 5px;
     padding: 7px;
-    background-color: #000000c6;
+    background-color: #000000c2;
     // background-image: @current-wallpaper;   
 }
 

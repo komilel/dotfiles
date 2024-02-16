@@ -30,16 +30,16 @@
     height = (0, 300)
 
     # Position the notification in the top right corner
-    origin = top-center
+    origin = top-left
 
     # Offset from the origin
-    offset = 0x15
+    offset = 8x8
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 10
+    notification_limit = 4
 
     ### Progress bar ###
 
