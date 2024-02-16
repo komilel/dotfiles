@@ -16,8 +16,19 @@ rasi_file="$HOME/.cache/current_wallpaper.rasi"
 random_wallpaper=$(find ~/wallpapers -type f | shuf -n 1)
 
 case $1 in
+    "init")
+        # Wallpaper initialisation on hyprland startup
+        if [ -f "$cache_wallpaper" ]; then
+            wal -a 1.0 -n -i "$cache_wallpaper"
+            swww img "$cache_wallpaper" \
+                --transition-type=random \
+                --transition-fps=60 \
+                --transition-duration=1
+        fi
+        exit 0
+    ;;        
     "random")
-        # Wallpaper initialisation on hyprland startup or random wallpaper change
+        # Random wallpaper change
         wal -a 1.0 -n -i "$random_wallpaper"
     ;;
 esac
@@ -30,9 +41,12 @@ echo "* { current-wallpaper: url(\"$random_wallpaper\", height); }" > "$rasi_fil
 
 # Change wallpaper with swww
 swww img "$random_wallpaper" \
-        --transition-type=random \
+        --transition-type="outer" \
         --transition-fps=60 \
-        --transition-duration=1
+        --transition-duration=1.5
 
 # Relaunch waybar with new colors
 killall waybar && waybar
+
+# Reload xray feature in hyprland
+hyprctl reload
