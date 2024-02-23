@@ -122,3 +122,6 @@ alias hx='helix'
 
 # Load pywal theme to new terminal instances
 cat ~/.cache/wal/sequences
+
+# Init zoxide (replace cd command)
+eval "$(zoxide init zsh --cmd cd)"
