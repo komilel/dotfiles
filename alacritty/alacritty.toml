@@ -31,5 +31,8 @@ padding = { x = 7, y = 7 }
 opacity = 0.7
 title = "Alacritty"
 
+[font]
+size = 12.5
+
 [scrolling]
 multiplier = 6
