@@ -51,7 +51,7 @@ case $1 in
         swww img "$HOME/wallpapers/$selected" \
                 --transition-type="outer" \
                 --transition-fps=60 \
-                --transition-duration=1.5
+                --transition-duration=0.75
 
         # Relaunch waybar with new colors
         killall waybar && waybar
@@ -79,7 +79,7 @@ case $1 in
         swww img "$random_wallpaper" \
                 --transition-type="outer" \
                 --transition-fps=60 \
-                --transition-duration=1.5
+                --transition-duration=0.75
 
         # Relaunch waybar with new colors
         killall waybar && waybar

@@ -22,11 +22,12 @@ All the following steps could be applied to Arch and Arch-based system
 ## Main packages 
 ```sh
 yay -S alacritty archlinux-keyring bibata-cursor-theme brightnessctl dunst grim \
-gtk-engine-murrine helix hyprland-git hyprlang hyprpicker-git kvantum neofetch \
-noto-fonts noto-fonts-cjk noto-fonts-emoji nerd-fonts papirus-icon-theme pavucontrol \
-pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse python-pywal \
-polkit polkit-gnome polkit-qt5 qalculate-gtk rofi-lbonn-wayland slurp swww \
-tela-circle-icon-theme-purple thunar thunar-archive-plugin thunarx-python waybar wayland \
+gtk-engine-murrine helix hyprland hyprlang hypridle hyprlock \
+hyprpicker-git kvantum neofetch noto-fonts noto-fonts-cjk noto-fonts-emoji \
+nerd-fonts papirus-icon-theme pavucontrol pipewire pipewire-alsa pipewire-audio \
+pipewire-jack pipewire-pulse python-pywal polkit polkit-gnome polkit-qt5 \
+qalculate-gtk rofi-lbonn-wayland slurp swww tela-circle-icon-theme-purple thunar \
+thunar-archive-plugin thunarx-python waybar wayland \
 xdg-desktop-portal xdg-desktop-portal-hyprland zoxide zsh zsh-autocomplete \
 zsh-syntax-highlighting
 ```

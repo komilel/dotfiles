@@ -24,13 +24,13 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = (0, 500)
 
     # The maximum height of a single notification, excluding the frame.
     height = (0, 300)
 
     # Position the notification in the top right corner
-    origin = top-left
+    origin = top-center
 
     # Offset from the origin
     offset = 8x8
@@ -40,6 +40,9 @@
 
     # Maximum number of notification (0 means no limit)
     notification_limit = 4
+
+    # Enable posix regex
+    enable_posix_regex = true
 
     ### Progress bar ###
 
@@ -192,7 +195,7 @@
     hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
-    show_indicators = yes
+    show_indicators = no
 
     ### Icons ###
 
@@ -217,7 +220,7 @@
     max_icon_size = 128
 
     # Paths to default icons (only neccesary when not using recursive icon lookup)
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    # icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
     ### History ###
 
@@ -374,6 +377,14 @@
 # Instead of the appname filter, it's recommended to use the desktop_entry filter.
 # GLib based applications export their desktop-entry name. In comparison to the appname,
 # the desktop-entry won't get localized.
+
+[nm-skip-rule]
+appname=NetworkManager
+skip_display=true
+
+[browser-skip-rule]
+appname=Vivaldi
+skip_display=true
 #
 # SCRIPTING
 # You can specify a script that gets run when the rule matches by

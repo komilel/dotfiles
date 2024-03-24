@@ -80,9 +80,8 @@
   },
 
   "clock": {
-    "format": "{:󰥔 %I:%M %p}",
-    "format-alt": "{: %a, %d of %B}",
-    // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "󰥔 {:%I:%M %p}",
+    "format-alt": "  {:%a, %d of %B}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "mode": "month",
