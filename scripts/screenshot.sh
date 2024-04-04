@@ -1,4 +1,13 @@
 #!/bin/bash
+# Screenshot script
 
-# Take a screenshot of an area and copy it to the clipboard
-grim -g "$(slurp)" -t png - | wl-copy
+case $1 in
+    "area")
+        # Take the screenshot of the area
+        grimblast copy area
+    ;;
+    "full")
+        # Take the screenshot of the full screen
+        grimblast copy screen
+    ;;
+esac

@@ -45,13 +45,13 @@ case $1 in
         echo "$HOME/wallpapers/$selected" > "$cache_wallpaper"
 
         # Cache wallpaper in rasi
-        echo "* { current-wallpaper: url(\"$HOME/wallpapers/$selected\", height); }" > "$rasi_file"
+        echo "* { current-wallpaper: url(\"$HOME/wallpapers/$selected\", width); }" > "$rasi_file"
 
         # Change wallpaper with swww
         swww img "$HOME/wallpapers/$selected" \
                 --transition-type="outer" \
                 --transition-fps=60 \
-                --transition-duration=0.75
+                --transition-duration=1.0
 
         # Relaunch waybar with new colors
         killall waybar && waybar
@@ -73,13 +73,13 @@ case $1 in
         echo "$random_wallpaper" > "$cache_wallpaper"
 
         # Cache wallpaper in rasi
-        echo "* { current-wallpaper: url(\"$random_wallpaper\", height); }" > "$rasi_file"
+        echo "* { current-wallpaper: url(\"$random_wallpaper\", width); }" > "$rasi_file"
 
         # Change wallpaper with swww
         swww img "$random_wallpaper" \
                 --transition-type="outer" \
                 --transition-fps=60 \
-                --transition-duration=0.75
+                --transition-duration=1.0
 
         # Relaunch waybar with new colors
         killall waybar && waybar
