@@ -54,7 +54,7 @@ case $1 in
                 --transition-duration=1.0
 
         # Relaunch waybar with new colors
-        killall waybar && waybar
+        ~/dotfiles/waybar/launch.sh
 
         # Reload xray feature in hyprland
         hyprctl reload
@@ -82,10 +82,10 @@ case $1 in
                 --transition-duration=1.0
 
         # Relaunch waybar with new colors
-        killall waybar && waybar
+        ~/dotfiles/waybar/launch.sh
 
         # Reload xray feature in hyprland
-        hyprctl reload
+        # hyprctl reload
 
         exit 0
     ;;

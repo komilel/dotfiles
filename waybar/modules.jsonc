@@ -161,7 +161,7 @@
   },
 
   "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
+    // "scroll-step": 1
     "format": "{icon} {volume}",
     "format-muted": "󰝟",
     "format-icons": {
@@ -169,7 +169,7 @@
       "default": [
         "",
         "",
-        ""
+        " "
       ]
     },
     "on-click": "pavucontrol"

@@ -10,7 +10,7 @@ __        __          _                      _         _
 */
 
 /* Import colors from wal */
-@import "../../.cache/wal/colors-waybar.css";
+@import "../../../.cache/wal/colors-waybar.css";
 
 * {
     font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
@@ -218,10 +218,6 @@ window#waybar {
 
 #mpris.paused {
     opacity: 0.5;
-}
-
-#window {
-    margin: 0 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
