@@ -1,6 +1,0 @@
-# Fork version of tokyonight theme by Paul Graydon <p.y.graydon@gmail.com>
-# Soon to be modified
-
-inherits = "tokyonight"
-
-"ui.background" = { fg = "foreground" } # Modified to make Helix transparent
