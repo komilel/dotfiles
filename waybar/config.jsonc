@@ -23,12 +23,13 @@
 
     "modules-left": [
         "clock",
-        "wlr/taskbar",
         "mpris"
     ],
+
     "modules-center": [
         "hyprland/workspaces"
     ],
+
     "modules-right": [
         "pulseaudio",  
         "group/stats", 

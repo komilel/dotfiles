@@ -8,6 +8,6 @@ case $1 in
     ;;
     "full")
         # Take the screenshot of the full screen
-        grimblast copy screen
+        grimblast copy output
     ;;
 esac

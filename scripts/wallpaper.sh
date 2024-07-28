@@ -20,7 +20,7 @@ case $1 in
             wal -a 1.0 -n -i "$cache_wallpaper"
             swww img "$cache_wallpaper" \
                 --transition-type="outer" \
-                --transition-fps=60 \
+                --transition-fps=45 \
                 --transition-duration=1
         fi
 
@@ -28,7 +28,7 @@ case $1 in
     ;;
 
     "select")
-        selected=$( find "$HOME/wallpapers" -type f -exec basename {} \; | while read wall
+        selected=$( find "$HOME/wallpapers" -type f -exec basename {} \; | shuf | while read wall
         do
             echo -en "$wall\x00icon\x1f$HOME/wallpapers/${wall}\n"
         done | rofi -dmenu -i -replace -config ~/dotfiles/rofi/wallpaper.rasi )
@@ -50,14 +50,14 @@ case $1 in
         # Change wallpaper with swww
         swww img "$HOME/wallpapers/$selected" \
                 --transition-type="outer" \
-                --transition-fps=60 \
+                --transition-fps=45 \
                 --transition-duration=1.0
 
         # Relaunch waybar with new colors
         ~/dotfiles/waybar/launch.sh
 
         # Reload xray feature in hyprland
-        hyprctl reload
+        # hyprctl reload
 
         exit 0    
     ;;        
@@ -78,7 +78,7 @@ case $1 in
         # Change wallpaper with swww
         swww img "$random_wallpaper" \
                 --transition-type="outer" \
-                --transition-fps=60 \
+                --transition-fps=45 \
                 --transition-duration=1.0
 
         # Relaunch waybar with new colors

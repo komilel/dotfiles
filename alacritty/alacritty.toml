@@ -27,12 +27,12 @@ foreground = "#a9b1d6"
 
 [window]
 decorations = "full"
-padding = { x = 0, y = 0 }
-opacity = 0.75
+padding = { x = 2, y = 0 }
+opacity = 0.85
 title = "Alacritty"
 
 [font]
-size = 12.5
+size = 13
 
 [scrolling]
 multiplier = 6

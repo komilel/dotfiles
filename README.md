@@ -24,12 +24,11 @@ All the following steps could be applied to Arch and Arch-based system
 yay -S alacritty archlinux-keyring bibata-cursor-theme brightnessctl dunst grim grimblast-git \
 gtk-engine-murrine hyprland hyprlang hypridle hyprlock \
 hyprpicker-git kvantum neofetch neovim noto-fonts noto-fonts-cjk noto-fonts-emoji \
-nerd-fonts papirus-icon-theme pavucontrol pipewire pipewire-alsa pipewire-audio \
+nerd-fonts pavucontrol pipewire pipewire-alsa pipewire-audio \
 pipewire-jack pipewire-pulse python-pywal polkit polkit-gnome polkit-qt5 \
-qalculate-gtk rofi-lbonn-wayland slurp swww tela-circle-icon-theme-purple thunar \
+qalculate-gtk rofi-lbonn-wayland slurp swww thunar \
 thunar-archive-plugin thunarx-python waybar wayland \
 xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
-zsh-syntax-highlighting zsh-autosuggestions
 ```
 ...and all of the dependencies
 

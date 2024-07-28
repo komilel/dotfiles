@@ -20,8 +20,9 @@ __        __          _                      _         _
 
 /* Window Waybar */
 window#waybar {
-    /* background-color: rgba(255, 255, 255, 0.4); */
-    background-color: rgba(5, 5, 23, 0.6);
+    /* background-color: @color3; */
+    /* 99, 83, 128 */
+    background-color: rgba(5, 5, 23, 0.7);
     border-radius: 0px;
     transition-property: background-color;
     transition-duration: .5s;
@@ -29,7 +30,7 @@ window#waybar {
 
 /* Workspaces */
 #workspaces {
-    background: @background;
+    /* background: @background; */
     padding: 0px 4px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
@@ -47,7 +48,7 @@ window#waybar {
     border: solid 1px #ffffff;
     border-radius: inherit;
     opacity: 0.4;
-    transition: all .5s ease-in-out;
+    transition: all .25s ease-in-out;
 }
 
 #workspaces button.active {
@@ -57,7 +58,7 @@ window#waybar {
     border: solid 1px @color1;
     border-radius: inherit;
     opacity: 1.0;
-    transition: all .5s ease-in-out;
+    transition: all .25s ease-in-out;
 }
 
 #workspaces button:hover {
@@ -68,7 +69,7 @@ window#waybar {
 
 /* Taskbar */
 #taskbar {
-    background: @background;
+    /* background: @background; */
     padding: 0px 4px;
     margin: 4px 4px;
     border: solid 0px #ffffff;
@@ -85,7 +86,7 @@ window#waybar {
 
 /* Clock */
 #clock {
-    background: @background;
+    /* background: @background; */
     /* background: rgba( 164, 146, 169, 0.5 ); */
     color: @color7;
     padding: 0px 10px;
@@ -99,7 +100,7 @@ window#waybar {
 
 /* Pulseaudio */
 #pulseaudio {
-    background: @background;
+    /* background: @background; */
     color: @color7;
     padding: 0px 8px;
     margin: 4px 4px;
@@ -112,7 +113,7 @@ window#waybar {
 
 /* Stats group begin*/
 #stats {
-    background: @background;
+    /* background: @background; */
     color: @color7;
     padding: 0px 4px;
     margin: 4px 4px;
@@ -122,7 +123,7 @@ window#waybar {
 }
 
 #cpu {
-    background: transparent;
+    /* background: transparent; */
     color: @color7;
     padding: 0px 4px;
     margin: 4px 0px;
@@ -131,7 +132,7 @@ window#waybar {
 }
 
 #memory {
-    background: transparent;
+    /* background: transparent; */
     color: @color7;
     padding: 0px 4px;
     margin: 4px 0px;
@@ -142,7 +143,7 @@ window#waybar {
 
 /* Backlight */
 #backlight {
-    background: @background;
+    /* background: @background; */
     color: @color7;
     padding: 0px 8px;
     margin: 4px 4px;
@@ -155,7 +156,7 @@ window#waybar {
 
 /* Battery */
 #battery, #battery.plugged {
-    background: @background;
+    /* background: @background; */
     color: @color7;
     padding: 0px 8px;
     margin: 4px 4px;
@@ -176,7 +177,7 @@ window#waybar {
 
 /* Tray */
 #tray {
-    background: @background;
+    /* background: @background; */
     padding: 0px 8px;
     margin: 4px 4px;
     border: solid 0px #ffffff;
@@ -195,7 +196,7 @@ window#waybar {
 
 /* Language */
 #language {
-    background: @background;
+    /* background: @background; */
     color: @color7;
     padding: 0px 8px;
     margin: 4px 4px;
@@ -208,7 +209,7 @@ window#waybar {
 
 /* Player mpris */
 #mpris {
-    background: @background;
+    /* background: @background; */
     color: #5aeebf;
     padding: 0px 8px;
     margin: 4px 4px;

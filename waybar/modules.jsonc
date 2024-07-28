@@ -80,7 +80,7 @@
   },
 
   "clock": {
-    "format": "󰥔 {:%I:%M %p}",
+    "format": "󰥔 {:%I:%M %p   %a, %d of %B}",
     "format-alt": "  {:%a, %d of %B}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
