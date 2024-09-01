@@ -10,11 +10,13 @@ Configuration files for Komi's laptop
 
 # Screenshots
 
-<img align="center" src=".assets/float_neofetch_vsc.png">
+<img align="center" src=".assets/float_neofetch_cbonsai.png">
 
 </br>
 
-<img align="center" src=".assets/tile_neofetch_pipes.png">
+<img align="center" src=".assets/tile_nvim_alacritty.png">
+
+</br>
 
 # Installation
 All the following steps could be applied to Arch and Arch-based system
