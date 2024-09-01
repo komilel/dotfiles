@@ -18,7 +18,7 @@ require('lazy').setup {
         'nvim-telescope/telescope.nvim',
         event = 'VimEnter',
         branch = '0.1.x',
-       dependencies = {
+        dependencies = {
             'nvim-lua/plenary.nvim',
 
             { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -48,7 +48,6 @@ require('lazy').setup {
             require('telescope').setup {
                 -- You can put your default mappings / updates / etc. in here
                 --  All the info you're looking for is in `:help telescope.setup()`
-
                 defaults = {
                     mappings = {
                         n = {
@@ -85,16 +84,14 @@ require('lazy').setup {
             vim.keymap.set('n', '<leader>sb', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
             vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
             vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-            vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+            vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
             vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-            vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
+            vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-            -- Slightly advanced example of overriding default behavior and theme
             vim.keymap.set('n', '<leader>/', function()
-                -- You can pass additional configuration to Telescope to change the theme, layout, etc.
                 builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-                    winblend = 10,
                     previewer = false,
+                    prompt_title = "Fuzzily find in the buffer"
                 })
             end, { desc = '[/] Fuzzily search in current buffer' })
 
@@ -317,6 +314,10 @@ require('lazy').setup {
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
                         end, '[T]oggle Inlay [H]ints')
                     end
+
+                    if client and client.server_capabilities.signatureHelpProvider then
+                        require("lsp-overloads").setup(client, { })
+                    end
                 end,
             })
 
@@ -397,29 +398,48 @@ require('lazy').setup {
         end,
     },
 
+    {
+        "Issafalcon/lsp-overloads.nvim"
+    },
+
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
+        lazy = false,
         build = ':TSUpdate',
-        opts = {
-            ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
-            -- Autoinstall languages that are not installed
-            auto_install = true,
-            highlight = {
-                enable = true,
-                -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-                --  If you are experiencing weird indenting issues, add the language to
-                --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-                additional_vim_regex_highlighting = { 'ruby' },
-            },
-            indent = { enable = true, disable = { 'ruby' } },
-        },
         config = function()
             -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
             -- Prefer git instead of curl in order to improve connectivity in some environments
             require('nvim-treesitter.install').prefer_git = true
+
             ---@diagnostic disable-next-line: missing-fields
-            require('nvim-treesitter.configs').setup { indent = { disable = 'cpp' } }
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = {
+                    'bash',
+                    'c',
+                    'diff',
+                    'html',
+                    'lua',
+                    'luadoc',
+                    'markdown',
+                    'vim',
+                    'vimdoc',
+                    'javascript',
+                    'typescript',
+                    'hyprlang'
+                },
+
+                -- Autoinstall languages that are not installed
+                auto_install = true,
+                highlight = {
+                    enable = true,
+                    -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+                    --  If you are experiencing weird indenting issues, add the language to
+                    --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+                    additional_vim_regex_highlighting = false,
+                },
+                indent = { enable = true, disable = { 'cpp' } },
+            }
 
             -- There are additional nvim-treesitter modules that you can use to interact
             -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -429,6 +449,140 @@ require('lazy').setup {
             --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
         end,
     },
+
+    -- DAP CONFIGURATION START
+
+    { -- DAP itself
+        "mfussenegger/nvim-dap",
+        config = function ()
+            local dap = require('dap')
+
+            -- Set keymaps for debugging
+            vim.keymap.set('n', '<F5>', dap.continue)
+            vim.keymap.set('n', '<F6>', dap.close)
+            vim.keymap.set('n', '<F10>', dap.step_over)
+            vim.keymap.set('n', '<F11>', dap.step_into)
+            vim.keymap.set('n', '<F12>', dap.step_out)
+            vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint)
+
+            -- Setting up codelldb
+            -- dap.adapters.codelldb = {
+            --     type = "server",
+            --     port = "${port}",
+            --     executable = {
+            --         command = "/home/komi/.local/share/nvim/mason/packages/codelldb",
+            --         args = {"--port", "${port}"},
+            --     }
+            -- }
+
+            dap.adapters.codelldb = {
+                type = "executable",
+                command = "/home/komi/.local/share/nvim/mason/packages/codelldb/codelldb",
+                name = "codelldb",
+            }
+
+            dap.configurations.c = {
+                {
+                    name = "[Codelldb] Launch executable",
+                    type = "codelldb",
+                    request = "launch",
+                    -- program = require("telescope.builtin").find_files, -- TODO: add picker for the program executable
+                    program = function ()
+                        return vim.fn.input("Executable filepath: ", vim.fn.getcwd() .. "/")
+                    end,
+                    cwd = '${workspaceFolder}',
+                    stopOnEntry = false,
+                }
+            }
+        end
+    },
+
+    { -- Adapter for js
+        "mxsdev/nvim-dap-vscode-js",
+        config = function ()
+            ---@diagnostic disable-next-line: missing-fields
+            require("dap-vscode-js").setup({
+                -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+                -- debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug", -- Path to vscode-js-debug installation.
+                debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+                adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
+                -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
+                -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
+                -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
+            })
+
+            for _, language in ipairs({ "typescript", "javascript" }) do
+               require("dap").configurations[language] = {
+                    {
+                        type = "pwa-node",
+                        request = "launch",
+                        name = "Launch file",
+                        program = "${file}",
+                        cwd = "${workspaceFolder}",
+                    },
+                    {
+                        type = "pwa-node",
+                        request = "attach",
+                        name = "Attach",
+                        processId = require'dap.utils'.pick_process,
+                        cwd = "${workspaceFolder}",
+                    }
+                }
+            end
+        end
+    },
+
+    { -- UI for the debugger
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        config = function ()
+            require("dapui").setup()
+
+            local dap, dapui = require("dap"), require("dapui")
+
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open({})
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close({})
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close({})
+            end
+
+            vim.keymap.set('n', '<leader>ui', dapui.toggle)
+        end
+    },
+
+    {
+        'jay-babu/mason-nvim-dap.nvim',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'mfussenegger/nvim-dap',
+        },
+        config = function()
+            require('mason-nvim-dap').setup {
+                ensure_installed = {
+                    'codelldb',
+                },
+                automatic_setup = true,
+                handlers = {
+                    function(config)
+                        require('mason-nvim-dap').default_setup(config)
+                    end,
+                },
+            }
+
+            --Change icons
+            local sign = vim.fn.sign_define
+            sign('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
+            sign('DapBreakpointCondition', { text = '●', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
+            sign('DapLogPoint', { text = '◆', texthl = 'DapLogPoint', linehl = '', numhl = '' })
+            sign('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })
+        end,
+    },
+
+    -- DAP CONFIGURATION END
 
     -- { -- Autoformat
     --   'stevearc/conform.nvim',
@@ -573,87 +727,27 @@ require('lazy').setup {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },
+                    { name = 'nvim_lsp_signature_help' },
                 },
             }
         end,
     },
 
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "oxfist/night-owl.nvim",
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-            require("rose-pine").setup({
-                variant = "auto", -- auto, main, moon, or dawn
-                dark_variant = "main", -- main, moon, or dawn
-                dim_inactive_windows = false,
-                extend_background_behind_borders = true,
-
-                enable = {
-                    terminal = true,
-                    legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-                    migrations = true, -- Handle deprecated options automatically
-                },
-
-                styles = {
-                    bold = true,
-                    italic = true,
-                    transparency = false,
-                },
-
-                groups = {
-                    border = "muted",
-                    link = "iris",
-                    panel = "surface",
-
-                    error = "love",
-                    hint = "iris",
-                    info = "foam",
-                    note = "pine",
-                    todo = "rose",
-                    warn = "gold",
-
-                    git_add = "foam",
-                    git_change = "rose",
-                    git_delete = "love",
-                    git_dirty = "rose",
-                    git_ignore = "muted",
-                    git_merge = "iris",
-                    git_rename = "pine",
-                    git_stage = "iris",
-                    git_text = "rose",
-                    git_untracked = "subtle",
-
-                    h1 = "iris",
-                    h2 = "foam",
-                    h3 = "rose",
-                    h4 = "gold",
-                    h5 = "pine",
-                    h6 = "foam",
-                },
-
-                highlight_groups = {
-                    -- Comment = { fg = "foam" },
-                    -- VertSplit = { fg = "muted", bg = "muted" },
-                },
-
-                before_highlight = function(group, highlight, palette)
-                    -- Disable all undercurls
-                    -- if highlight.undercurl then
-                    --     highlight.undercurl = false
-                    -- end
-                    --
-                    -- Change palette colour
-                    -- if highlight.fg == palette.pine then
-                    --     highlight.fg = palette.foam
-                    -- end
-                end,
+            -- load the colorscheme here
+            require("night-owl").setup({
+                bold = true,
+                italics = true,
+                undercurl = true,
+                underline = true,
+                transparent_background = true
             })
-
-            vim.cmd("colorscheme rose-pine")
-            -- vim.cmd("colorscheme rose-pine-main")
-            -- vim.cmd("colorscheme rose-pine-moon")
-            -- vim.cmd("colorscheme rose-pine-dawn")
-        end
+            vim.cmd.colorscheme("night-owl")
+        end,
     },
 
     -- Status bar
@@ -666,7 +760,7 @@ require('lazy').setup {
         config = function()
             require("lualine").setup {
                 options = {
-                    theme = "rose-pine"
+                    theme = "night-owl"
                 }
             }
         end
@@ -698,7 +792,36 @@ require('lazy').setup {
     },
 
     {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+    },
+
+    {
         "tpope/vim-fugitive",
+    },
+
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local harpoon = require("harpoon")
+
+            harpoon:setup(
+                {
+                    settings = {
+                        save_on_toggle = true,
+                    }
+                }
+            )
+
+            vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+            vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            vim.keymap.set("n", "<C-S-N>", function() harpoon:list():prev() end)
+            vim.keymap.set("n", "<C-S-P>", function() harpoon:list():next() end)
+        end
     },
 
     {

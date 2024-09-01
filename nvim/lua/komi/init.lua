@@ -1,10 +1,8 @@
 require("komi.set")
 require("komi.remap")
-require("komi.lazy_init")
+require("komi.lazy")
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
+-- Autocommands
 -- Highlight when yanking (copying) text
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -15,3 +13,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Hyprlang LSP
+-- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+-- 		pattern = {"*.hl", "hypr*/*.conf"},
+-- 		callback = function(event)
+-- 				print(string.format("starting hyprls for %s", vim.inspect(event)))
+-- 				vim.lsp.start {
+-- 						name = "hyprlang",
+-- 						cmd = {"hyprls"},
+-- 						root_dir = vim.fn.getcwd(),
+-- 				}
+-- 		end
+-- })

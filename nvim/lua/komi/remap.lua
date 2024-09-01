@@ -16,9 +16,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Best keymap ever (for me)
-vim.keymap.set({'n', 'i', 'v', 'x'}, '<A-c>', '<Esc>', { desc = 'Return to normal mode' })
-
 -- Clear highlight after the search
 vim.keymap.set('n', '<C-x>', '<cmd>nohlsearch<CR>')
 
@@ -37,7 +34,7 @@ vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Yank to system clipboar
 
 vim.keymap.set('n', '<leader>d', '"_d', { desc = 'Delete to the void (_) register' })
 
-vim.keymap.set('n', '<Tab>', '<C-6>', { desc = 'Tab to cycle recent buffers' })
+vim.keymap.set('n', '<Tab>', '<C-6>', { desc = '[Tab] to cycle recent buffers' })
 
 vim.keymap.set('n', '<A-j>', '5<C-w>+', { desc = 'Resize vertical split down' })
 vim.keymap.set('n', '<A-k>', '5<C-w>-', { desc = 'Resize vertical split up' })
