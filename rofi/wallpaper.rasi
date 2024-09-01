@@ -28,15 +28,15 @@ configuration {
 
 // Window
 window {
-    width: 658px;
+    width: 935px;
     margin: 2px;
     padding: 0px;
-    border: 2px;
+    border: 1px;
     border-radius: 10px;
     border-color: @color7;
     background-color: transparent;
     transparency: "real";
-    location: north;
+    location: center;
 }
 
 mainbox {
@@ -71,7 +71,7 @@ entry {
 
 listview {
     columns: 1;
-    lines: 8;
+    lines: 6;
     cycle: true;
     spacing: 3px;
     border: 0px;
@@ -83,8 +83,8 @@ listview {
 element {
     cursor: pointer;
     border-color: #ffffff;
-    border-radius: 10px;
-    border: 2px;
+    border-radius: 5px;
+    border: 0px;
     background-color: inherit;
 }
 
@@ -95,6 +95,7 @@ element normal {
 
 element selected {
     // background-color: #a88080c0;
+    border: 1px;
     border-color: @color9;
     text-color: @foreground;
 }
@@ -117,7 +118,7 @@ element-icon {
     cursor: inherit;
     vertical-align: 0.5;
     horizontal-align: 0.5;
-    size: 100px;
+    size: 150px;
 }
 
 // Messages

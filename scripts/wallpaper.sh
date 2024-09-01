@@ -13,15 +13,20 @@
 cache_wallpaper="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
 
+# Vars for swww
+transition_type="outer"
+transition_fps=30
+transition_duration=1
+
 case $1 in
     "init")
         # Wallpaper initialisation on hyprland startup
         if [ -f "$cache_wallpaper" ]; then
             wal -a 1.0 -n -i "$cache_wallpaper"
             swww img "$cache_wallpaper" \
-                --transition-type="outer" \
-                --transition-fps=45 \
-                --transition-duration=1
+                --transition-type="$transition_type" \
+                --transition-fps=$transition_fps \
+                --transition-duration=$transition_duration
         fi
 
         exit 0
@@ -49,15 +54,15 @@ case $1 in
 
         # Change wallpaper with swww
         swww img "$HOME/wallpapers/$selected" \
-                --transition-type="outer" \
-                --transition-fps=45 \
-                --transition-duration=1.0
+                --transition-type="$transition_type" \
+                --transition-fps=$transition_fps \
+                --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
         ~/dotfiles/waybar/launch.sh
 
         # Reload xray feature in hyprland
-        # hyprctl reload
+        hyprctl reload
 
         exit 0    
     ;;        
@@ -77,15 +82,15 @@ case $1 in
 
         # Change wallpaper with swww
         swww img "$random_wallpaper" \
-                --transition-type="outer" \
-                --transition-fps=45 \
-                --transition-duration=1.0
+                --transition-type="$transition_type" \
+                --transition-fps=$transition_fps \
+                --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
         ~/dotfiles/waybar/launch.sh
 
         # Reload xray feature in hyprland
-        # hyprctl reload
+        hyprctl reload
 
         exit 0
     ;;

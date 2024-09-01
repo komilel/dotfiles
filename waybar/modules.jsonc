@@ -4,7 +4,7 @@
 // | |  | | (_) | (_| | |_| | |  __/\__ \
 // |_|  |_|\___/ \__,_|\__,_|_|\___||___/
 // 
-// by Komi      
+// by Komi
 
 {
   // Hyprland modules configuration
@@ -48,21 +48,18 @@
   "group/stats": {
     "orientation": "inherit",
     "modules": [
-      "cpu",
-      "memory",
-    ],
-    "drawer": {
-      "transition-duration": 500,
-      "transition-left-to-right": false,
-      "childer-class": "not-cpu"
-    }
+        "pulseaudio",
+        "backlight",
+        "cpu",
+        "battery",
+    ]
   },
 
   "mpris": {
     "player": "spotify",
     "interval": 1,
-    "format": " {artist}: {title}",
-    "format-paused": " {artist}: {title}",
+    "format": "  {artist}: {title}",
+    "format-paused": "  {artist}: {title}",
     "status-icons": {
       "playing": "",
       "paused": ""
@@ -80,8 +77,8 @@
   },
 
   "clock": {
-    "format": "󰥔 {:%I:%M %p   %a, %d of %B}",
-    "format-alt": "  {:%a, %d of %B}",
+    "format": "{:%I:%M %p  %a, %b %d}",
+    "format-alt": "{:%a, %b %d}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "mode": "month",
@@ -103,13 +100,13 @@
   "cpu": {
     "interval": 5,
     "tooltip": false,
-    "format": " {usage}%"
+    "format": "{usage}% "
   },
 
   "memory": {
     "interval": 20,
     "tooltip": false,
-    "format": " {used:0.1f}GB"
+    "format": "{used:0.1f}GB "
   },
 
   "temperature": {
@@ -122,7 +119,7 @@
     // "device": "acpi_video1",
     "interval": 2,
     "tooltip": false,
-    "format": " {percent}%",
+    "format": "{percent}% ",
   },
 
   "battery": {
@@ -131,9 +128,9 @@
       "critical": 10
     },
     "interval": 45,
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰂅 {capacity}%",
+    "format": "{capacity}% {icon} ",
+    "format-charging": "{capacity}% 󰂄",
+    "format-plugged": "{capacity}% 󰂅",
     "format-alt": "{time} {icon}",
     "format-icons": [
       "󰂎",
@@ -162,8 +159,8 @@
 
   "pulseaudio": {
     // "scroll-step": 1
-    "format": "{icon} {volume}",
-    "format-muted": "󰝟",
+    "format": "{volume}% {icon}",
+    "format-muted": "󰖁",
     "format-icons": {
       "headphone": "",
       "default": [

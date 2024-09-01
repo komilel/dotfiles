@@ -6,6 +6,9 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Well
+cowsay -f koala "Komi" | lolcat
+
 # Load completions
 autoload -U compinit && compinit
 

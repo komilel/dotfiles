@@ -1,4 +1,4 @@
-// Wallpaper-based config for Rofi
+// Drun config for Rofi
 //             __ _ 
 //  _ __ ___  / _(_)
 // | '__/ _ \| |_| |
@@ -47,7 +47,6 @@ mainbox {
     padding: 7px;
     background-color: #000000b0;
     background-image: @current-wallpaper;   
-    // background-image: url("/home/komi/wallpapers/Anime_GirlHorns.jpg", height);
 }
 
 // Input Bar
@@ -100,8 +99,8 @@ element {
 }
 
 element normal {
-    background-color: transparent;
-    text-color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-color: @color1;
 }
 
 element selected {
