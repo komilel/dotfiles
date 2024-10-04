@@ -6,9 +6,6 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Well
-cowsay -f koala "Komi" | lolcat
-
 # Load completions
 autoload -U compinit && compinit
 
@@ -45,6 +42,7 @@ alias cdl='cd -'
 alias ls='ls --color'
 alias c='clear'
 alias dfs='cd ~/dotfiles'
+alias dfn='dfs && nv .'
 alias lc='colorls --sd'
 alias llc='colorls -lA --sd'
 alias sn='shutdown now'
@@ -52,15 +50,19 @@ alias rb='reboot'
 alias nv='nvim'
 alias sudo='sudo '
 alias hctl='hyprctl'
-alias dfn='dfs && nv .'
 alias nc='nmcli connection up'
 alias nd='nmcli connection down'
+alias nuke='rm -rf'
+alias nukee='sudo rm -rf'
 
 # Aliases for yay
 alias ys='yay -S'
 alias yf='yay -Ss'
 alias yr='yay -R'
 alias yrc='yay -Rns'
+
+# Aliases for dotnet
+alias dnr='dotnet run'
 
 zinit cdreplay -q
 
@@ -75,3 +77,10 @@ eval "$(fzf --zsh)"
 
 # Init starship
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/home/komi/.bun/_bun" ] && source "/home/komi/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

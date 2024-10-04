@@ -7,6 +7,9 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Hidden buffers
+vim.o.hidden = true
+
 -- Indenting opts
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -46,21 +49,63 @@ vim.opt.splitright = true
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 8
+
+vim.opt.autoread = true
+
+vim.opt.swapfile = false
 
 vim.opt.termguicolors = true
 
 vim.opt.winblend = 10
 vim.opt.pumblend = 10
 
--- TODO: Later map the russian keys to latin keys
--- vim.opt.langmap = "йцукенгшщзхъфывапролджэячсмитьбю.ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ.;qwertyuiop[]asdfghjkl;'zxcvbnm,./QWERTYUIOP[]ASDFGHJKL;'ZXCVBNM,."
+-- Disable netrw for nvim-tree.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Configure langmap for russian
+local function escape(str)
+  local escape_chars = [[;,."|\]]
+  return vim.fn.escape(str, escape_chars)
+end
+
+local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,.]]
+local ru = [[ёйцукенгшщзхъфывапролджэячсмитьбю]]
+local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
+local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+
+vim.opt.langmap = vim.fn.join({
+    escape(ru_shift) .. ';' .. escape(en_shift),
+    escape(ru) .. ';' .. escape(en),
+}, ',')
+-- End langmap configuring
 
 -- Set highlight on search
 vim.opt.hlsearch = true
+
+-- Diagnostics
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+        }
+    },
+    update_in_insert = true,
+    underline = true,
+    severity_sort = true,
+    float = {
+        border = "rounded",
+        source = "always",
+    }
+})
 
 -- Filetypes for hyprlang
 vim.filetype.add({

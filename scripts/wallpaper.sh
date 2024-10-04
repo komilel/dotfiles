@@ -14,8 +14,8 @@ cache_wallpaper="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
 
 # Vars for swww
-transition_type="outer"
-transition_fps=30
+transition_type="simple"
+transition_fps=45
 transition_duration=1
 
 case $1 in
@@ -59,10 +59,7 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
-        ~/dotfiles/waybar/launch.sh
-
-        # Reload xray feature in hyprland
-        hyprctl reload
+        killall -SIGUSR2 waybar
 
         exit 0    
     ;;        
@@ -87,10 +84,7 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
-        ~/dotfiles/waybar/launch.sh
-
-        # Reload xray feature in hyprland
-        hyprctl reload
+        killall -SIGUSR2 waybar
 
         exit 0
     ;;

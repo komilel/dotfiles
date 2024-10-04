@@ -19,8 +19,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- Clear highlight after the search
 vim.keymap.set('n', '<C-x>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', '<leader>se', vim.cmd.Ex, { desc = '[S]how [E]xplorer' })
-
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = '<C-d> centered' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = '<C-u> centered' })
 
@@ -36,7 +34,7 @@ vim.keymap.set('n', '<leader>d', '"_d', { desc = 'Delete to the void (_) registe
 
 vim.keymap.set('n', '<Tab>', '<C-6>', { desc = '[Tab] to cycle recent buffers' })
 
-vim.keymap.set('n', '<A-j>', '5<C-w>+', { desc = 'Resize vertical split down' })
-vim.keymap.set('n', '<A-k>', '5<C-w>-', { desc = 'Resize vertical split up' })
-vim.keymap.set('n', '<A-h>', '5<C-w><', { desc = 'Resize horizontal split left' })
-vim.keymap.set('n', '<A-l>', '5<C-w>>', { desc = 'Resize horizontal split right' })
+vim.keymap.set('n', '<C-A-j>', '5<C-w>+', { desc = 'Resize vertical split down' })
+vim.keymap.set('n', '<C-A-k>', '5<C-w>-', { desc = 'Resize vertical split up' })
+vim.keymap.set('n', '<C-A-h>', '5<C-w><', { desc = 'Resize horizontal split left' })
+vim.keymap.set('n', '<C-A-l>', '5<C-w>>', { desc = 'Resize horizontal split right' })

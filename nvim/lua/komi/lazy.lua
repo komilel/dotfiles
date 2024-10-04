@@ -128,7 +128,7 @@ require('lazy').setup {
                 editor = {
                     image = nil,                                -- Image ID or URL in case a custom client id is provided
                     client = 'neovim',                          -- vim, neovim, lunarvim, nvchad, astronvim or your application's client id
-                    tooltip = 'You know what it is',            -- Text to display when hovering over the editor's image
+                    tooltip = 'Superior Text Editor',            -- Text to display when hovering over the editor's image
                 },
                 display = {
                     show_time = true,                           -- Display start timestamp
@@ -138,7 +138,7 @@ require('lazy').setup {
                     workspace_blacklist = {},                   -- List of workspace names to hide
                 },
                 lsp = {
-                    show_problem_count = false,                 -- Display number of diagnostics problems
+                    show_problem_count = true,                 -- Display number of diagnostics problems
                     severity = 1,                               -- 1 = Error, 2 = Warning, 3 = Info, 4 = Hint
                     scope = 'workspace',                        -- buffer or workspace
                 },
@@ -310,7 +310,7 @@ require('lazy').setup {
                     --
                     -- This may be unwanted, since they displace some of your code
                     if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-                        map('<leader>th', function()
+                        map('<leader>ih', function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
                         end, '[T]oggle Inlay [H]ints')
                     end
@@ -318,6 +318,8 @@ require('lazy').setup {
                     if client and client.server_capabilities.signatureHelpProvider then
                         require("lsp-overloads").setup(client, { })
                     end
+
+                    client.server_capabilities.semanticTokensProvider = nil
                 end,
             })
 
@@ -348,7 +350,7 @@ require('lazy').setup {
                 --    https://github.com/pmizio/typescript-tools.nvim
                 --
                 -- But for many setups, the LSP (`tsserver`) will work just fine
-                tsserver = {},
+                -- tsserver = {},
                 --
 
                 lua_ls = {
@@ -398,6 +400,15 @@ require('lazy').setup {
         end,
     },
 
+    { -- Icons in lsp hover
+        "onsails/lspkind.nvim",
+        config = function ()
+            require("lspkind").setup {
+                mode = "symbol_text",
+            }
+        end
+    },
+
     {
         "Issafalcon/lsp-overloads.nvim"
     },
@@ -438,7 +449,7 @@ require('lazy').setup {
                     --  the list of additional_vim_regex_highlighting and disabled languages for indent.
                     additional_vim_regex_highlighting = false,
                 },
-                indent = { enable = true, disable = { 'cpp' } },
+                indent = { enable = false },
             }
 
             -- There are additional nvim-treesitter modules that you can use to interact
@@ -448,6 +459,22 @@ require('lazy').setup {
             --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
             --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
         end,
+    },
+
+    { -- Show current code context
+        "nvim-treesitter/nvim-treesitter-context",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+            require("treesitter-context").setup {
+                enable = true,
+                max_lines = 3,
+            }
+
+            vim.cmd.hi("TreesitterContextLineNumber gui=bold guibg=#222436")
+            vim.cmd.hi("TreesitterContext guibg=#222436")
+        end
     },
 
     -- DAP CONFIGURATION START
@@ -550,7 +577,7 @@ require('lazy').setup {
                 dapui.close({})
             end
 
-            vim.keymap.set('n', '<leader>ui', dapui.toggle)
+            vim.keymap.set('n', '<leader>di', dapui.toggle)
         end
     },
 
@@ -661,14 +688,35 @@ require('lazy').setup {
             -- See `:help cmp`
             local cmp = require 'cmp'
             local luasnip = require 'luasnip'
+            local lspkind = require 'lspkind'
             luasnip.config.setup {}
 
             cmp.setup {
+                ---@diagnostic disable-next-line: missing-fields
+                formatting = {
+                    format = lspkind.cmp_format({
+                        mode = 'symbol_text', -- show only symbol annotations
+                        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                        -- can also be a function to dynamically calculate max width such as 
+                        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+                        ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                        show_labelDetails = false, -- show labelDetails in menu. Disabled by default
+
+                        -- The function below will be called before any actual modifications from lspkind
+                        -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+                        -- before = function (entry, vim_item)
+                        --     ...
+                        --     return vim_item
+                        -- end
+                    })
+                },
+
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
                     end,
                 },
+
                 completion = { completeopt = 'menu,menuone,noinsert' },
 
                 -- For an understanding of why these mappings were
@@ -733,21 +781,39 @@ require('lazy').setup {
         end,
     },
 
-    {
-        "oxfist/night-owl.nvim",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            -- load the colorscheme here
-            require("night-owl").setup({
-                bold = true,
-                italics = true,
-                undercurl = true,
-                underline = true,
-                transparent_background = true
-            })
-            vim.cmd.colorscheme("night-owl")
-        end,
+    -- {
+    --     "oxfist/night-owl.nvim",
+    --     lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    --     priority = 1000, -- make sure to load this before all the other start plugins
+    --     config = function()
+    --         -- load the colorscheme here
+    --         require("night-owl").setup({
+    --             bold = true,
+    --             italics = true,
+    --             undercurl = true,
+    --             underline = true,
+    --             transparent_background = true
+    --         })
+    --         vim.cmd.colorscheme("night-owl")
+    --     end,
+    -- },
+
+    { -- Theme
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function ()
+            require("tokyonight").setup {
+                transparent = true,
+                styles = {
+                    keywords = { italic = true },
+                },
+                lualine_bold = true,
+            }
+
+            vim.cmd[[colorscheme tokyonight-moon]]
+        end
     },
 
     -- Status bar
@@ -760,14 +826,13 @@ require('lazy').setup {
         config = function()
             require("lualine").setup {
                 options = {
-                    theme = "night-owl"
+                    theme = "tokyonight"
                 }
             }
         end
     },
 
-    -- Toggling transparency for groups
-    {
+    { -- Toggling transparency for groups
         "xiyaowong/transparent.nvim",
         config = function()
             require("transparent").setup {
@@ -784,32 +849,31 @@ require('lazy').setup {
         end
     },
 
-    {
+    { -- Musthave visualizer for the undos in the buffer
         "mbbill/undotree",
         config = function()
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle [U]ndotree" })
         end
     },
 
-    {
+    { -- I love autopairs
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         config = true
     },
 
-    {
+    { -- Git integration
         "tpope/vim-fugitive",
     },
 
-    {
+    { -- Hop between files!
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local harpoon = require("harpoon")
 
-            harpoon:setup(
-                {
+            harpoon:setup({
                     settings = {
                         save_on_toggle = true,
                     }
@@ -821,10 +885,349 @@ require('lazy').setup {
 
             vim.keymap.set("n", "<C-S-N>", function() harpoon:list():prev() end)
             vim.keymap.set("n", "<C-S-P>", function() harpoon:list():next() end)
+
+            vim.keymap.set("n", "<C-S-H>", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "<C-S-J>", function() harpoon:list():select(2) end)
+            vim.keymap.set("n", "<C-S-K>", function() harpoon:list():select(3) end)
+            vim.keymap.set("n", "<C-S-L>", function() harpoon:list():select(4) end)
+        end
+    },
+
+    { -- Just nvim practicing
+        "ThePrimeagen/vim-be-good",
+    },
+
+    { -- Useful highlight for the colors!
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require('colorizer').setup {
+                css = {
+                    mode = 'background',
+                    rgb_fn = true
+                };
+            }
+        end
+    },
+
+    { -- Cozy terminal (vertical as for me)
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        config = function()
+            require("toggleterm").setup {
+                size = 50,
+                open_mapping = [[<leader>t]],
+                hide_numbers = true,
+                direction = 'float',
+                insert_mappings = false,
+            }
         end
     },
 
     {
-        "ThePrimeagen/vim-be-good",
-    }
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        },
+        config = function()
+            require("neo-tree").setup({
+                close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+                popup_border_style = "rounded",
+                enable_git_status = true,
+                enable_diagnostics = true,
+                open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
+                sort_case_insensitive = false, -- used when sorting files and directories in the tree
+                sort_function = nil , -- use a custom function for sorting files and directories in the tree 
+                -- sort_function = function (a,b)
+                    --       if a.type == b.type then
+                    --           return a.path > b.path
+                    --       else
+                    --           return a.type > b.type
+                    --       end
+                    --   end , -- this sorts files and directories descendantly
+                    default_component_configs = {
+                        container = {
+                            enable_character_fade = true
+                        },
+                        indent = {
+                            indent_size = 2,
+                            padding = 1, -- extra padding on left hand side
+                            -- indent guides
+                            with_markers = true,
+                            indent_marker = "│",
+                            last_indent_marker = "└",
+                            highlight = "NeoTreeIndentMarker",
+                            -- expander config, needed for nesting files
+                            with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
+                            expander_collapsed = "",
+                            expander_expanded = "",
+                            expander_highlight = "NeoTreeExpander",
+                        },
+                        icon = {
+                            folder_closed = "",
+                            folder_open = "",
+                            folder_empty = "󰜌",
+                            provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+                                if node.type == "file" or node.type == "terminal" then
+                                    local success, web_devicons = pcall(require, "nvim-web-devicons")
+                                    local name = node.type == "terminal" and "terminal" or node.name
+                                    if success then
+                                        local devicon, hl = web_devicons.get_icon(name)
+                                        icon.text = devicon or icon.text
+                                        icon.highlight = hl or icon.highlight
+                                    end
+                                end
+                            end,
+                            -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
+                            -- then these will never be used.
+                            default = "*",
+                            highlight = "NeoTreeFileIcon"
+                        },
+                        modified = {
+                            symbol = "[+]",
+                            highlight = "NeoTreeModified",
+                        },
+                        name = {
+                            trailing_slash = false,
+                            use_git_status_colors = true,
+                            highlight = "NeoTreeFileName",
+                        },
+                        git_status = {
+                            symbols = {
+                                -- Change type
+                                added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                                modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                                deleted   = "✖",-- this can only be used in the git_status source
+                                renamed   = "󰁕",-- this can only be used in the git_status source
+                                -- Status type
+                                untracked = "",
+                                ignored   = "",
+                                unstaged  = "󰄱",
+                                staged    = "",
+                                conflict  = "",
+                            }
+                        },
+                        -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
+                        file_size = {
+                            enabled = true,
+                            required_width = 64, -- min width of window required to show this column
+                        },
+                        type = {
+                            enabled = true,
+                            required_width = 122, -- min width of window required to show this column
+                        },
+                        last_modified = {
+                            enabled = true,
+                            required_width = 88, -- min width of window required to show this column
+                        },
+                        created = {
+                            enabled = true,
+                            required_width = 110, -- min width of window required to show this column
+                        },
+                        symlink_target = {
+                            enabled = false,
+                        },
+                    },
+                    -- A list of functions, each representing a global custom command
+                    -- that will be available in all sources (if not overridden in `opts[source_name].commands`)
+                    -- see `:h neo-tree-custom-commands-global`
+                    commands = {},
+                    window = {
+                        position = "current",
+                        width = 40,
+                        mapping_options = {
+                            noremap = true,
+                            nowait = true,
+                        },
+                        mappings = {
+                            ["J"] = { 
+                                "toggle_node", 
+                                nowait = true, -- disable `nowait` if you have existing combos starting with this char that you want to use 
+                            },
+                            ["<2-LeftMouse>"] = "open",
+                            ["<cr>"] = "open",
+                            ["<esc>"] = "cancel", -- close preview or floating neo-tree window
+                            ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+                            -- Read `# Preview Mode` for more information
+                            ["l"] = "focus_preview",
+                            ["S"] = "open_split",
+                            ["s"] = "open_vsplit",
+                            -- ["S"] = "split_with_window_picker",
+                            -- ["s"] = "vsplit_with_window_picker",
+                            ["t"] = "open_tabnew",
+                            -- ["<cr>"] = "open_drop",
+                            -- ["t"] = "open_tab_drop",
+                            ["w"] = "open_with_window_picker",
+                            --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
+                            ["C"] = "close_node",
+                            -- ['C'] = 'close_all_subnodes',
+                            ["z"] = "close_all_nodes",
+                            --["Z"] = "expand_all_nodes",
+                            ["a"] = { 
+                                "add",
+                                -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
+                                -- some commands may take optional config options, see `:h neo-tree-mappings` for details
+                                config = {
+                                    show_path = "none" -- "none", "relative", "absolute"
+                                }
+                            },
+                            ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
+                            ["d"] = "delete",
+                            ["r"] = "rename",
+                            ["y"] = "copy_to_clipboard",
+                            ["x"] = "cut_to_clipboard",
+                            ["p"] = "paste_from_clipboard",
+                            ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
+                            -- ["c"] = {
+                                --  "copy",
+                                --  config = {
+                                    --    show_path = "none" -- "none", "relative", "absolute"
+                                    --  }
+                                    --}
+                                    ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
+                                    ["q"] = "close_window",
+                                    ["R"] = "refresh",
+                                    ["?"] = "show_help",
+                                    ["<"] = "prev_source",
+                                    [">"] = "next_source",
+                                    ["i"] = "show_file_details",
+                                }
+                            },
+                            nesting_rules = {},
+                            filesystem = {
+                                filtered_items = {
+                                    visible = false, -- when true, they will just be displayed differently than normal items
+                                    hide_dotfiles = false,
+                                    hide_gitignored = true,
+                                    hide_hidden = true, -- only works on Windows for hidden files/directories
+                                    hide_by_name = {
+                                        --"node_modules"
+                                    },
+                                    hide_by_pattern = { -- uses glob style patterns
+                                        --"*.meta",
+                                        --"*/src/*/tsconfig.json",
+                                    },
+                                    always_show = { -- remains visible even if other settings would normally hide it
+                                        --".gitignored",
+                                    },
+                                    always_show_by_pattern = { -- uses glob style patterns
+                                        --".env*",
+                                    },
+                                    never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+                                        --".DS_Store",
+                                        --"thumbs.db"
+                                    },
+                                    never_show_by_pattern = { -- uses glob style patterns
+                                        --".null-ls_*",
+                                    },
+                                },
+                                follow_current_file = {
+                                    enabled = false, -- This will find and focus the file in the active buffer every time
+                                    --               -- the current file is changed while the tree is open.
+                                    leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+                                },
+                                group_empty_dirs = false, -- when true, empty folders will be grouped together
+                                hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+                                -- in whatever position is specified in window.position
+                                -- "open_current",  -- netrw disabled, opening a directory opens within the
+                                -- window like netrw would, regardless of window.position
+                                -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
+                                use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+                                -- instead of relying on nvim autocmd events.
+                                window = {
+                                    mappings = {
+                                        ["<bs>"] = "navigate_up",
+                                        ["."] = "set_root",
+                                        ["H"] = "toggle_hidden",
+                                        ["/"] = "fuzzy_finder",
+                                        ["D"] = "fuzzy_finder_directory",
+                                        ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
+                                        -- ["D"] = "fuzzy_sorter_directory",
+                                        ["f"] = "filter_on_submit",
+                                        ["<c-x>"] = "clear_filter",
+                                        ["[g"] = "prev_git_modified",
+                                        ["]g"] = "next_git_modified",
+                                        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                                        ["oc"] = { "order_by_created", nowait = false },
+                                        ["od"] = { "order_by_diagnostics", nowait = false },
+                                        ["og"] = { "order_by_git_status", nowait = false },
+                                        ["om"] = { "order_by_modified", nowait = false },
+                                        ["on"] = { "order_by_name", nowait = false },
+                                        ["os"] = { "order_by_size", nowait = false },
+                                        ["ot"] = { "order_by_type", nowait = false },
+                                        -- ['<key>'] = function(state) ... end,
+                                    },
+                                    fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+                                        ["<down>"] = "move_cursor_down",
+                                        ["<C-n>"] = "move_cursor_down",
+                                        ["<up>"] = "move_cursor_up",
+                                        ["<C-p>"] = "move_cursor_up",
+                                        -- ['<key>'] = function(state, scroll_padding) ... end,
+                                    },
+                                },
+
+                                commands = {} -- Add a custom command or override a global one using the same function name
+                            },
+                            buffers = {
+                                follow_current_file = {
+                                    enabled = true, -- This will find and focus the file in the active buffer every time
+                                    --              -- the current file is changed while the tree is open.
+                                    leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+                                },
+                                group_empty_dirs = true, -- when true, empty folders will be grouped together
+                                show_unloaded = true,
+                                window = {
+                                    mappings = {
+                                        ["bd"] = "buffer_delete",
+                                        ["<bs>"] = "navigate_up",
+                                        ["."] = "set_root",
+                                        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                                        ["oc"] = { "order_by_created", nowait = false },
+                                        ["od"] = { "order_by_diagnostics", nowait = false },
+                                        ["om"] = { "order_by_modified", nowait = false },
+                                        ["on"] = { "order_by_name", nowait = false },
+                                        ["os"] = { "order_by_size", nowait = false },
+                                        ["ot"] = { "order_by_type", nowait = false },
+                                    }
+                                },
+                            },
+                            git_status = {
+                                window = {
+                                    position = "float",
+                                    mappings = {
+                                        ["A"]  = "git_add_all",
+                                        ["gu"] = "git_unstage_file",
+                                        ["ga"] = "git_add_file",
+                                        ["gr"] = "git_revert_file",
+                                        ["gc"] = "git_commit",
+                                        ["gp"] = "git_push",
+                                        ["gg"] = "git_commit_and_push",
+                                        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                                        ["oc"] = { "order_by_created", nowait = false },
+                                        ["od"] = { "order_by_diagnostics", nowait = false },
+                                        ["om"] = { "order_by_modified", nowait = false },
+                                        ["on"] = { "order_by_name", nowait = false },
+                                        ["os"] = { "order_by_size", nowait = false },
+                                        ["ot"] = { "order_by_type", nowait = false },
+                                    }
+                                }
+                            }
+            })
+
+            vim.keymap.set("n", "<leader>se", "<cmd>Neotree<CR>")
+            vim.keymap.set("n", "<leader>fe", "<cmd>Neotree position=float toggle=true<CR>")
+        end
+    },
+
+    -- {
+    --     'Wansmer/langmapper.nvim',
+    --     lazy = false,
+    --     priority = 1,
+    --     config = function()
+    --         require('langmapper').setup()
+    --     end,
+    -- },
 }

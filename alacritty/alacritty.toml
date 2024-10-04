@@ -28,10 +28,11 @@ foreground = "#a9b1d6"
 [window]
 decorations = "full"
 padding = { x = 2, y = 0 }
-opacity = 0.85
+opacity = 0.9
 title = "Alacritty"
 
 [font]
+italic = { family = "VictorMonoNerdFont", style = "Italic" }
 size = 13
 
 [scrolling]
