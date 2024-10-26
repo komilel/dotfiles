@@ -99,7 +99,7 @@ element {
 }
 
 element normal {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     text-color: @color1;
 }
 

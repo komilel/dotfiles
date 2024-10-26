@@ -226,6 +226,8 @@ require('lazy').setup {
             vim.api.nvim_create_autocmd('LspAttach', {
                 group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
                 callback = function(event)
+                    local bufnr = event.bufnr
+                    
                     -- NOTE: Remember that Lua is a real programming language, and as such it is possible
                     -- to define small helper and utility functions so you don't have to repeat yourself.
                     --
@@ -241,7 +243,7 @@ require('lazy').setup {
                     map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
                     -- Find references for the word under your cursor.
-                    map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+                    map('<leader>rf', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
                     -- Jump to the implementation of the word under your cursor.
                     --  Useful when your language has ways of declaring types without an actual implementation.
@@ -270,7 +272,7 @@ require('lazy').setup {
 
                     -- Opens a popup that displays documentation about the word under your cursor
                     --  See `:help K` for why this keymap.
-                    map('K', vim.lsp.buf.hover, 'Hover Documentation')
+                    -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
                     -- WARN: This is not Goto Definition, this is Goto Declaration.
                     --  For example, in C this would take you to the header.
@@ -305,6 +307,8 @@ require('lazy').setup {
                         })
                     end
 
+                    require('lsp_signature').on_attach({}, bufnr)
+
                     -- The following autocommand is used to enable inlay hints in your
                     -- code, if the language server you are using supports them
                     --
@@ -313,10 +317,6 @@ require('lazy').setup {
                         map('<leader>ih', function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
                         end, '[T]oggle Inlay [H]ints')
-                    end
-
-                    if client and client.server_capabilities.signatureHelpProvider then
-                        require("lsp-overloads").setup(client, { })
                     end
 
                     client.server_capabilities.semanticTokensProvider = nil
@@ -409,8 +409,66 @@ require('lazy').setup {
         end
     },
 
+    { -- Display signature!
+        "ray-x/lsp_signature.nvim",
+        event = "InsertEnter",
+        opts = {
+            bind = true,
+            handler_opts = {
+                border = "rounded"
+            }
+        },
+        -- config = function(_, opts) require'lsp_signature'.setup(opts) end
+    },
+
     {
-        "Issafalcon/lsp-overloads.nvim"
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
+
+    {
+        "lewis6991/hover.nvim",
+        event = "LspAttach",
+        config = function()
+            require("hover").setup {
+                init = function()
+                    -- Require providers
+                    require("hover.providers.lsp")
+                    -- require('hover.providers.gh')
+                    -- require('hover.providers.gh_user')
+                    -- require('hover.providers.jira')
+                    -- require('hover.providers.dap')
+                    -- require('hover.providers.fold_preview')
+                    -- require('hover.providers.diagnostic')
+                    -- require('hover.providers.man')
+                    -- require('hover.providers.dictionary')
+                end,
+                preview_opts = {
+                    border = 'single'
+                },
+                -- Whether the contents of a currently open hover window should be moved
+                -- to a :h preview-window when pressing the hover keymap.
+                preview_window = false,
+                title = true,
+                -- mouse_providers = {
+                --     'LSP'
+                -- },
+                -- mouse_delay = 1000
+            }
+
+            -- Setup keymaps
+            vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+            vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
+            vim.keymap.set("n", "<C-p>", function() require("hover").hover_switch("previous") end, {desc = "hover.nvim (previous source)"})
+            vim.keymap.set("n", "<C-n>", function() require("hover").hover_switch("next") end, {desc = "hover.nvim (next source)"})
+
+            -- Mouse support
+            -- vim.keymap.set('n', '<MouseMove>', require('hover').hover_mouse, { desc = "hover.nvim (mouse)" })
+            -- vim.o.mousemoveevent = true
+        end
     },
 
     { -- Highlight, edit, and navigate code
@@ -520,6 +578,12 @@ require('lazy').setup {
                     cwd = '${workspaceFolder}',
                     stopOnEntry = false,
                 }
+            }
+
+            dap.adapters.coreclr = {
+                type = 'executable',
+                command = '/home/komi/.local/share/nvim/mason/packages/netcoredbg/netcoredbg',
+                args = {'--interpreter=vscode'}
             }
         end
     },
@@ -816,6 +880,50 @@ require('lazy').setup {
         end
     },
 
+    -- { -- Oops, new colorscheme
+    --   url = "https://codeberg.org/jthvai/lavender.nvim",
+    --   branch = "stable", -- versioned tags + docs updates from main
+    --   lazy = false,
+    --   priority = 1000,
+    --   config = function()
+    --       -- Default config in lua
+    --       vim.g.lavender = {
+    --           transparent = {
+    --               background = false, -- do not render the main background
+    --               float      = false, -- do not render the background in floating windows
+    --               popup      = false, -- do not render the background in popup menus
+    --               sidebar    = false, -- do not render the background in sidebars
+    --           },
+    --           contrast = true, -- colour the sidebar and floating windows differently to the main background
+    --
+    --           italic = {
+    --               comments  = true, -- italic comments
+    --               functions = false, -- italic function names
+    --               keywords  = true, -- italic keywords
+    --               variables = false, -- italic variables
+    --           },
+    --
+    --           signs = false, -- use icon (patched font) diagnostic sign text
+    --
+    --           -- new values will be merged in
+    --           overrides = {
+    --               -- highlight groups - see theme.lua
+    --               -- existing groups will be entirely replaced
+    --               theme = {
+    --                   LspReferenceText = { bg = "#ffffff" }
+    --               },
+    --
+    --               colors = {
+    --                   cterm = {}, -- cterm colours - see colors/cterm.lua
+    --                   hex = {}, -- hex (true) colours - see colors/hex.lua
+    --               },
+    --           },
+    --       }
+    --
+    --       vim.cmd "colorscheme lavender"
+    --   end
+    -- },
+
     -- Status bar
     {
         'nvim-lualine/lualine.nvim',
@@ -904,7 +1012,11 @@ require('lazy').setup {
                 css = {
                     mode = 'background',
                     rgb_fn = true
-                };
+                },
+                rasi = {
+                    mode = 'background',
+                    rgb_fn = true
+                },
             }
         end
     },

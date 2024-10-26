@@ -14,7 +14,12 @@ __        __          _                      _         _
 /* Import colors from wal */
 @import "../../../.cache/wal/colors-waybar.css";
 
+/* @define-color text-color #121420; */
+@define-color text-color #ffffff;
+
 * {
+    transition-property: background-color;
+    transition-duration: 1s;
     font-family: "BitstromWera Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 12px;
     min-height: 0;
@@ -22,7 +27,7 @@ __        __          _                      _         _
 
 /* Window Waybar */
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 0px;
     transition-property: background-color;
     transition-duration: .5s;
@@ -86,7 +91,7 @@ window#waybar {
 /* Clock */
 #clock {
     background-color: @color1;
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 10px;
     margin: 4px 2px;
     /* border: solid 0px #ffffff; */
@@ -98,7 +103,7 @@ window#waybar {
 /* Pulseaudio */
 #pulseaudio {
     /* background: @background; */
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 4px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
@@ -123,7 +128,7 @@ window#waybar {
 
 #cpu {
     /* background-color: #8584CA; */
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 5px;
     margin: 4px 2px;
     border-radius: 15px
@@ -142,7 +147,7 @@ window#waybar {
 /* Backlight */
 #backlight {
     /* background: @background; */
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 6px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
@@ -155,7 +160,7 @@ window#waybar {
 /* Battery */
 #battery {
     /* background: @background; */
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 0px;
     padding-left: 4px;
     /* padding-right: 4px; */
@@ -201,7 +206,7 @@ window#waybar {
 /* Language */
 #language {
     background-color: @color3;
-    color: #ffffff;
+    color: @text-color;
     padding: 0px 8px;
     margin: 4px 4px;
     border: solid 0px #ffffff;

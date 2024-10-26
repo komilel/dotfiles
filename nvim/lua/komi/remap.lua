@@ -16,6 +16,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+vim.keymap.set('n', 'j', 'gj', { desc = 'Go down by visual line' })
+vim.keymap.set('n', 'k', 'gk', { desc = 'Go up by visual line' })
+
 -- Clear highlight after the search
 vim.keymap.set('n', '<C-x>', '<cmd>nohlsearch<CR>')
 

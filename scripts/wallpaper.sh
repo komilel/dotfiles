@@ -15,7 +15,7 @@ rasi_file="$HOME/.cache/current_wallpaper.rasi"
 
 # Vars for swww
 transition_type="simple"
-transition_fps=45
+transition_fps=60
 transition_duration=1
 
 case $1 in
@@ -59,7 +59,7 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
-        killall -SIGUSR2 waybar
+        killall -SIGWINCH waybar_custom
 
         exit 0    
     ;;        
@@ -83,8 +83,8 @@ case $1 in
                 --transition-fps=$transition_fps \
                 --transition-duration=$transition_duration
 
-        # Relaunch waybar with new colors
-        killall -SIGUSR2 waybar
+        # Reload waybar with new css
+        killall -SIGWINCH waybar_custom
 
         exit 0
     ;;
