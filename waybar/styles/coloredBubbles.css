@@ -33,6 +33,10 @@ window#waybar {
     transition-duration: .5s;
 }
 
+window#waybar > box{
+    padding: 0px 4px;
+}
+
 /* Workspaces */
 #workspaces {
     background-color: @color2;

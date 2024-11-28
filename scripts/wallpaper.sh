@@ -33,7 +33,7 @@ case $1 in
     ;;
 
     "select")
-        selected=$( find "$HOME/wallpapers" -type f -exec basename {} \; | shuf | while read wall
+        selected=$( find "$HOME/wallpapers" -maxdepth 1 -type f -exec basename {} \; | shuf | while read wall
         do
             echo -en "$wall\x00icon\x1f$HOME/wallpapers/${wall}\n"
         done | rofi -dmenu -i -replace -config ~/dotfiles/rofi/wallpaper.rasi )
@@ -59,14 +59,14 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
-        killall -SIGWINCH waybar_custom
+        killall -SIGUSR2 waybar
 
         exit 0    
     ;;        
 
     "random")
         # Get random wallpaper from the wallpapers folder
-        random_wallpaper=$(find ~/wallpapers -type f | shuf -n 1)
+        random_wallpaper=$(find ~/wallpapers -maxdepth 1 -type f | shuf -n 1)
 
         # Random wallpaper change
         wal -a 1.0 -n -i "$random_wallpaper"
@@ -84,7 +84,7 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Reload waybar with new css
-        killall -SIGWINCH waybar_custom
+        killall -SIGUSR2 waybar
 
         exit 0
     ;;

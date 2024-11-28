@@ -23,22 +23,23 @@ All the following steps could be applied to Arch and Arch-based system
 
 ## Main packages 
 ```sh
-yay -S alacritty archlinux-keyring bibata-cursor-theme brightnessctl dunst grim grimblast-git \
+yay -S alacritty archlinux-keyring brightnessctl dunst grim grimblast-git \
 gtk-engine-murrine hyprland hyprlang hypridle hyprlock \
-hyprpicker-git kvantum neofetch neovim noto-fonts noto-fonts-cjk noto-fonts-emoji \
+hyprpicker-git kvantum network-manager-applet neofetch neovim noto-fonts noto-fonts-cjk noto-fonts-emoji \
 nerd-fonts pavucontrol pipewire pipewire-alsa pipewire-audio \
 pipewire-jack pipewire-pulse python-pywal polkit polkit-gnome polkit-qt5 \
 qalculate-gtk rofi-lbonn-wayland slurp swww thunar \
-thunar-archive-plugin thunarx-python waybar wayland \
-xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
+thunar-archive-plugin waybar wayland xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
 ```
 ...and all of the dependencies
 
 ## Auxiliary packages
-This is the list of packages that you might want to replace with something more of your liking or not to install at all. However here I go:
+List of packages which I use but consider them replaceable with more of one's liking. Please consider that corresponding line in the config won't work if some package's not installed:
 
 ```sh
-yay -S gnome-keyring vivaldi ruby-colorls nwg-look hyprland-per-window-layout
+yay -S bibata-cursor-theme gnome-keyring vivaldi ruby-colorls nwg-look hyprland-per-window-layout \
+wl-clip-persist sevi-icon-theme-full catppucin-gtk-theme-mocha \
+lsd
 ```
 
 ## Configuration files

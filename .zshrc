@@ -21,10 +21,6 @@ zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 zstyle ":completion:*" menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-# Binds
-bindkey -s '^[f' 'cd $(find . -type d -print | fzf)\n'
-bindkey -s '^g' 'nv $(fzf)\n'
-
 # Options for zsh
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -43,8 +39,8 @@ alias ls='ls --color'
 alias c='clear'
 alias dfs='cd ~/dotfiles'
 alias dfn='dfs && nv .'
-alias lc='colorls --sd'
-alias llc='colorls -lA --sd'
+alias lc='lsd'
+alias llc='lsd -al'
 alias sn='shutdown now'
 alias rb='reboot'
 alias nv='nvim'
@@ -54,6 +50,7 @@ alias nc='nmcli connection up'
 alias nd='nmcli connection down'
 alias nuke='rm -rf'
 alias nukee='sudo rm -rf'
+alias get_cw='cat ~/.cache/current_wallpaper'
 
 # Aliases for yay
 alias ys='yay -S'

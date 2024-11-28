@@ -6,8 +6,8 @@
 sleep 1
 
 # Kill all the instances of the panel if any
-killall waybar_custom
+killall waybar
 sleep 1
 
 # Launch the waybar with specified config and style.css
-~/dotfiles/personal/waybar_custom --config ~/.config/waybar/config.jsonc --style ~/.config/waybar/styles/coloredBubbles.css &
+waybar --config ~/.config/waybar/config.jsonc --style ~/.config/waybar/styles/coloredBubbles.css &
