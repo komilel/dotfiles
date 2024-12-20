@@ -27,13 +27,13 @@ __        __          _                      _         _
 
 /* Window Waybar */
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 0px;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
-window#waybar > box{
+window#waybar>box {
     padding: 0px 4px;
 }
 
@@ -42,10 +42,10 @@ window#waybar > box{
     background-color: @color2;
     padding: 0px 4px;
     margin: 4px 2px;
+    opacity: 1.0;
     border: solid 0px #ffffff;
     border-radius: 15px;
     font-style: normal;
-    opacity: 0.9;
 }
 
 #workspaces button {
@@ -53,9 +53,9 @@ window#waybar > box{
     color: #ffffff;
     padding: 0px 5px;
     margin: 2px 2px;
+    opacity: 0.7;
     /* border: solid 0px #ffffff; */
     border-radius: inherit;
-    opacity: 0.6;
     transition: all .25s ease-in-out;
 }
 
@@ -65,12 +65,11 @@ window#waybar > box{
     min-width: 40px;
     /* border: solid 0px @color1; */
     border-radius: inherit;
-    opacity: 1.0;
     transition: all .25s ease-in-out;
 }
 
 #workspaces button:hover {
-    background: @background;
+    background: @color1;
     color: #ffffff;
     opacity: 0.8;
 }
@@ -82,7 +81,7 @@ window#waybar > box{
     margin: 4px 4px;
     border: solid 0px #ffffff;
     border-radius: 15px;
-    opacity: 0.8;
+    opacity: 1.0;
 }
 
 #taskbar button {
@@ -96,24 +95,24 @@ window#waybar > box{
 #clock {
     background-color: @color1;
     color: @text-color;
-    padding: 0px 10px;
+    padding: 0px 7px;
     margin: 4px 2px;
     /* border: solid 0px #ffffff; */
     border-radius: 15px;
     font-style: normal;
-    /* opacity: 0.9; */
+    opacity: 1.0;
 }
 
 /* Pulseaudio */
 #pulseaudio {
     /* background: @background; */
     color: @text-color;
-    padding: 0px 4px;
+    padding: 0px 2px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
     border-radius: 15px;
     font-style: normal;
-    /* opacity: 0.8; */
+    opacity: 1.0;
 }
 
 #pulseaudio.muted {
@@ -127,7 +126,7 @@ window#waybar > box{
     margin: 4px 4px;
     border: solid 0px #ffffff;
     border-radius: 15px;
-    /* opacity: 0.9; */
+    opacity: 1.0;
 }
 
 #cpu {
@@ -136,7 +135,7 @@ window#waybar > box{
     padding: 0px 5px;
     margin: 4px 2px;
     border-radius: 15px
-    /* font-size: 12px; */
+        /* font-size: 12px; */
 }
 
 #memory {
@@ -152,13 +151,13 @@ window#waybar > box{
 #backlight {
     /* background: @background; */
     color: @text-color;
-    padding: 0px 6px;
+    padding: 0px 4px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
     border-radius: 15px;
     font-style: normal;
     /* font-size: 12px; */
-    /* opacity: 0.8; */
+    opacity: 1.0;
 }
 
 /* Battery */
@@ -167,13 +166,11 @@ window#waybar > box{
     color: @text-color;
     padding: 0px 0px;
     padding-left: 4px;
-    /* padding-right: 4px; */
     margin: 4px 2px;
     border: solid 0px #ffffff;
     border-radius: 15px;
     font-style: normal;
-    /* font-size: 12px; */
-    /* opacity: 0.8; */
+    opacity: 1.0;
 }
 
 #battery.plugged {
@@ -191,18 +188,18 @@ window#waybar > box{
 /* Tray */
 #tray {
     background-color: @color2;
-    padding: 4px 8px;
+    padding: 4px 6px;
     margin: 4px 2px;
     border: solid 0px #ffffff;
     border-radius: 15px;
-    opacity: 0.9;
+    opacity: 1.0;
 }
 
-#tray > .passive {
+#tray>.passive {
     -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
+#tray>.needs-attention {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
 }
@@ -217,7 +214,7 @@ window#waybar > box{
     border-radius: 15px;
     font-style: normal;
     /* font-size: 12px; */
-    /* opacity: 0.8; */
+    opacity: 1.0;
 }
 
 /* Player mpris */
@@ -230,7 +227,7 @@ window#waybar > box{
     border-radius: 15px;
     font-style: normal;
     /* font-size: 12px; */
-    /* opacity: 1.0; */
+    opacity: 1.0;
 }
 
 #mpris.paused {
@@ -238,15 +235,11 @@ window#waybar > box{
 }
 
 /* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
+/* .modules-left>widget:first-child>#workspaces { */
+/*     margin-left: 0; */
+/* } */
 
 /* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-}
-
-label:focus {
-    background-color: #000000;
-}
+/* .modules-right>widget:last-child>#workspaces { */
+/*     margin-right: 0; */
+/* } */

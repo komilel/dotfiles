@@ -33,9 +33,9 @@ case $1 in
     ;;
 
     "select")
-        selected=$( find "$HOME/wallpapers" -maxdepth 1 -type f -exec basename {} \; | shuf | while read wall
+        selected=$( find "$HOME/Wallpapers" -maxdepth 1 -type f -exec basename {} \; | shuf | while read wall
         do
-            echo -en "$wall\x00icon\x1f$HOME/wallpapers/${wall}\n"
+            echo -en "$wall\x00icon\x1f$HOME/Wallpapers/${wall}\n"
         done | rofi -dmenu -i -replace -config ~/dotfiles/rofi/wallpaper.rasi )
             
         if [ ! "$selected" ]; then
@@ -44,29 +44,29 @@ case $1 in
         fi
         
         # Change color scheme
-        wal -a 1.0 -n -i "$HOME/wallpapers/$selected"
+        wal -a 1.0 -n -i "$HOME/Wallpapers/$selected"
 
         # Cache wallpaper
-        echo "$HOME/wallpapers/$selected" > "$cache_wallpaper"
+        echo "$HOME/Wallpapers/$selected" > "$cache_wallpaper"
 
         # Cache wallpaper in rasi
-        echo "* { current-wallpaper: url(\"$HOME/wallpapers/$selected\", width); }" > "$rasi_file"
+        echo "* { current-wallpaper: url(\"$HOME/Wallpapers/$selected\", width); }" > "$rasi_file"
 
         # Change wallpaper with swww
-        swww img "$HOME/wallpapers/$selected" \
+        swww img "$HOME/Wallpapers/$selected" \
                 --transition-type="$transition_type" \
                 --transition-fps=$transition_fps \
                 --transition-duration=$transition_duration
 
         # Relaunch waybar with new colors
-        killall -SIGUSR2 waybar
+        killall -SIGWINCH waybar_custom
 
         exit 0    
     ;;        
 
     "random")
         # Get random wallpaper from the wallpapers folder
-        random_wallpaper=$(find ~/wallpapers -maxdepth 1 -type f | shuf -n 1)
+        random_wallpaper=$(find ~/Wallpapers -maxdepth 1 -type f | shuf -n 1)
 
         # Random wallpaper change
         wal -a 1.0 -n -i "$random_wallpaper"
@@ -84,7 +84,7 @@ case $1 in
                 --transition-duration=$transition_duration
 
         # Reload waybar with new css
-        killall -SIGUSR2 waybar
+        killall -SIGWINCH waybar_custom
 
         exit 0
     ;;

@@ -5,7 +5,7 @@ Configuration files for Komi's laptop
 - **Notifications** -> Dunst
 - **Panel** -> Waybar
 - **Launcher and dmenu** -> Rofi
-- **Terminal** -> Alacritty
+
 - **Color schemes** -> Pywal
 
 # Screenshots
@@ -30,6 +30,7 @@ nerd-fonts pavucontrol pipewire pipewire-alsa pipewire-audio \
 pipewire-jack pipewire-pulse python-pywal polkit polkit-gnome polkit-qt5 \
 qalculate-gtk rofi-lbonn-wayland slurp swww thunar \
 thunar-archive-plugin waybar wayland xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
+wl-clipboard zsh zinit fzf starship ripgrep fileroller zip unzip
 ```
 ...and all of the dependencies
 
@@ -37,9 +38,8 @@ thunar-archive-plugin waybar wayland xdg-desktop-portal xdg-desktop-portal-hyprl
 List of packages which I use but consider them replaceable with more of one's liking. Please consider that corresponding line in the config won't work if some package's not installed:
 
 ```sh
-yay -S bibata-cursor-theme gnome-keyring vivaldi ruby-colorls nwg-look hyprland-per-window-layout \
-wl-clip-persist sevi-icon-theme-full catppucin-gtk-theme-mocha \
-lsd
+yay -S bibata-cursor-theme gnome-keyring vivaldi nwg-look hyprland-per-window-layout \
+wl-clip-persist lsd qview okular colloid-catppuccin-gtk-theme-git tlp
 ```
 
 ## Configuration files
