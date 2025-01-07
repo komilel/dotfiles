@@ -10,11 +10,11 @@ Configuration files for Komi's laptop
 
 # Screenshots
 
-<img align="center" src=".assets/float_neofetch_cbonsai.png">
+<img align="center" src=".assets/float_neofetch.png">
 
 </br>
 
-<img align="center" src=".assets/tile_nvim_alacritty.png">
+<img align="center" src=".assets/tile_cbonsai_nvim.png">
 
 </br>
 
@@ -38,8 +38,8 @@ wl-clipboard zsh zinit fzf starship ripgrep fileroller zip unzip
 List of packages which I use but consider them replaceable with more of one's liking. Please consider that corresponding line in the config won't work if some package's not installed:
 
 ```sh
-yay -S bibata-cursor-theme gnome-keyring vivaldi nwg-look hyprland-per-window-layout \
-wl-clip-persist lsd qview okular colloid-catppuccin-gtk-theme-git tlp
+yay -S bibata-cursor-theme gnome-keyring nwg-look hyprland-per-window-layout \
+wl-clip-persist lsd qview colloid-catppuccin-gtk-theme-git tlp
 ```
 
 ## Configuration files
@@ -54,5 +54,6 @@ wl-clip-persist lsd qview okular colloid-catppuccin-gtk-theme-git tlp
     - neofetch
     - rofi
     - waybar
+    - wallust
 
 (e.g `ln -s ~/dotfiles/alacritty ~/.config/alacritty`)
