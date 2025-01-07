@@ -1,22 +1,11 @@
 #!/bin/bash
 # Screenshot script
 
-# case $1 in
-#     "area")
-#         # Take the screenshot of the area
-#         grimblast copy area
-#     ;;
-#     "full")
-#         # Take the screenshot of the full screen
-#         grimblast copy output
-#     ;;
-# esac
-
-# Without grimblast
+# Just grim and slurp
 case $1 in
     "area")
         # Take screenshot of the area to the clipboard
-        grim -c -g "$(slurp)" - | wl-copy
+        grim -g "$(slurp)" - | wl-copy
 
         # Notify // Wrong???
         if [ $? -eq 0 ]; then
@@ -24,8 +13,14 @@ case $1 in
         fi
     ;;
     "full")
+        # Get active monitor
+        active_monitor=$(
+            hyprctl activeworkspace -j |
+            jq -r '.monitor'
+        )
+
         # Take fullscreen screenshot
-        grim -c - | wl-copy
+        grim -o "$active_monitor" - | wl-copy
 
         # Notify
         notify-send "Screenshot was taken to the clipboard"

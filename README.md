@@ -6,7 +6,7 @@ Configuration files for Komi's laptop
 - **Panel** -> Waybar
 - **Launcher and dmenu** -> Rofi
 
-- **Color schemes** -> Pywal
+- **Color schemes** -> Wallust
 
 # Screenshots
 
@@ -27,9 +27,9 @@ yay -S alacritty archlinux-keyring brightnessctl dunst grim grimblast-git \
 gtk-engine-murrine hyprland hyprlang hypridle hyprlock \
 hyprpicker-git kvantum network-manager-applet neofetch neovim noto-fonts noto-fonts-cjk noto-fonts-emoji \
 nerd-fonts pavucontrol pipewire pipewire-alsa pipewire-audio \
-pipewire-jack pipewire-pulse python-pywal polkit polkit-gnome polkit-qt5 \
+pipewire-jack pipewire-pulse polkit polkit-gnome polkit-qt5 \
 qalculate-gtk rofi-lbonn-wayland slurp swww thunar \
-thunar-archive-plugin waybar wayland xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
+thunar-archive-plugin waybar wayland wallust xdg-desktop-portal xdg-desktop-portal-hyprland zoxide \
 wl-clipboard zsh zinit fzf starship ripgrep fileroller zip unzip
 ```
 ...and all of the dependencies

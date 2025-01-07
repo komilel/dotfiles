@@ -64,7 +64,7 @@ alias dnr='dotnet run'
 zinit cdreplay -q
 
 # Load pywal theme to new terminal instances
-cat ~/.cache/wal/sequences
+cat ~/.cache/wallust/sequences
 
 # Init zoxide (replace cd command)
 eval "$(zoxide init zsh --cmd cd)"
@@ -81,3 +81,6 @@ eval "$(starship init zsh)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# For bootdev
+export PATH="$PATH:$HOME/go/bin"

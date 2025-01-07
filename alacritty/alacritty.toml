@@ -28,7 +28,7 @@ foreground = "#a9b1d6"
 [window]
 decorations = "full"
 padding = { x = 2, y = 0 }
-opacity = 0.9
+opacity = 0.85
 title = "Alacritty"
 
 [font]

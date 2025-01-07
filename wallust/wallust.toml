@@ -1,0 +1,8 @@
+backend = "fastresize"
+palette = "dark"
+check_contrast = true
+
+[templates]
+waybar = { src = 'waybar.css', dst = '~/.cache/wallust/waybar.css' }
+hyprland = { src = 'colors-hyprland.conf', dst = '~/.cache/wallust/colors-hyprland.conf' }
+rofi = { src = 'colors-rofi.rasi', dst = '~/.cache/wallust/colors-rofi.rasi' }

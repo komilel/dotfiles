@@ -22,7 +22,7 @@ case $1 in
     "init")
         # Wallpaper initialisation on hyprland startup
         if [ -f "$cache_wallpaper" ]; then
-            wal -a 1.0 -n -i "$cache_wallpaper"
+            wallust run -i background "$cache_wallpaper"
             swww img "$cache_wallpaper" \
                 --transition-type="$transition_type" \
                 --transition-fps=$transition_fps \
@@ -44,13 +44,10 @@ case $1 in
         fi
         
         # Change color scheme
-        wal -a 1.0 -n -i "$HOME/Wallpapers/$selected"
+        wallust run -i background "$HOME/Wallpapers/$selected"
 
         # Cache wallpaper
         echo "$HOME/Wallpapers/$selected" > "$cache_wallpaper"
-
-        # Cache wallpaper in rasi
-        echo "* { current-wallpaper: url(\"$HOME/Wallpapers/$selected\", width); }" > "$rasi_file"
 
         # Change wallpaper with swww
         swww img "$HOME/Wallpapers/$selected" \
@@ -69,13 +66,10 @@ case $1 in
         random_wallpaper=$(find ~/Wallpapers -maxdepth 1 -type f | shuf -n 1)
 
         # Random wallpaper change
-        wal -a 1.0 -n -i "$random_wallpaper"
+        wallust run -i background "$random_wallpaper"
         
         # Cache wallpaper
         echo "$random_wallpaper" > "$cache_wallpaper"
-
-        # Cache wallpaper in rasi
-        echo "* { current-wallpaper: url(\"$random_wallpaper\", width); }" > "$rasi_file"
 
         # Change wallpaper with swww
         swww img "$random_wallpaper" \

@@ -23,8 +23,8 @@ configuration {
 // No theme overlapping
 @theme "/dev/null"
 
-// Include colors from pywal
-@import "~/.cache/wal/colors-rofi.rasi"
+// Include colors from wallust
+@import "~/.cache/wallust/colors-rofi.rasi"
 
 // Window
 window {

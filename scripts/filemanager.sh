@@ -1,0 +1,2 @@
+# Launch desired filemanager
+thunar

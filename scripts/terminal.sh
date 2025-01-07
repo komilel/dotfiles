@@ -1,0 +1,2 @@
+# Launch desired terminal
+alacritty

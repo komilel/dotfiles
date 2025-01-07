@@ -9,166 +9,195 @@
 {
   // Hyprland modules configuration
   "hyprland/workspaces": {
-    "format": "{id}",
-    "format-icons": {
-      "urgent": "",
-      "active": "",
-      "default": ""
-    },
-    "persistent-workspaces": {
-      "*": 5
-    },
-    "on-click": "activate",
-    "all-outputs": false
+      "format": "{icon}",
+      "format-icons": {
+          "1": "一",
+          "2": "二",
+          "3": "三",
+          "4": "四",
+          "5": "五",
+          "6": "六",
+          "7": "七",
+          "8": "八",
+          "9": "九",
+          "10": "十",
+      },
+      "persistent-workspaces": {
+          "*": 5
+      },
+      "on-click": "activate",
+      "all-outputs": false
   },
-  
+
   "hyprland/window": {
-    "format": "{title}",
-    "all-outputs": true
+      "format": "{title}",
+      "all-outputs": true
   },
 
   "hyprland/language": {
-    "format": "{}",
-    "format-en": "en",
-    "format-ru": "ru"
+      "format": "{}",
+      "format-en": "en",
+      "format-ru": "ru"
   },
 
   "wlr/taskbar": {
-    "format": "{icon}",
-    "icon-theme": "Papirus-Dark",
-    "icon-size": 18,
-    "on-click": "activate",
-    "on-click-right": "close",
-    "ignore-list": [
-      "", // For spotify not having WM_CLASS
-      "Alacritty"
-    ]
+      "format": "{icon}",
+      "icon-theme": "Papirus-Dark",
+      "icon-size": 18,
+      "on-click": "activate",
+      "on-click-right": "close",
+      "ignore-list": [
+          "", // For spotify not having WM_CLASS
+          "Alacritty"
+      ]
   },
 
   "group/stats": {
-    "orientation": "inherit",
-    "modules": [
-        "pulseaudio",
-        "backlight",
-        "cpu",
-        "battery",
-    ]
+      "orientation": "inherit",
+      "modules": [
+          "pulseaudio",
+          "backlight",
+          "cpu",
+          "battery",
+      ]
   },
 
   "mpris": {
-    "player": "spotify",
-    "interval": 1,
-    "format": "  {artist}: {title}",
-    "format-paused": "  {artist}: {title}",
-    "status-icons": {
-      "playing": "",
-      "paused": ""
-    },
-    "title-len": 20,
-    "tooltip-format-playing": " Playing: {artist}: {title} at {position} ({length})",
-    "tooltip-format-paused": " Paused: {artist}: {title} at {position} ({length})",
-    "ignored-players": ["chromium"]
+      "player": "spotify",
+      "interval": 1,
+      "format": "",
+      "format-paused": "",
+      "status-icons": {
+          "playing": "",
+          "paused": ""
+      },
+      "title-len": 20,
+      "tooltip-format-playing": " Playing: {artist}: {title} at {position} ({length})",
+      "tooltip-format-paused": " Paused: {artist}: {title} at {position} ({length})",
+      "ignored-players": ["chromium"]
   },
 
   "tray": {
-    "icon-size": 16,
-    "spacing": 10,
-    "show-passive-items": true
+      "icon-size": 16,
+      "spacing": 10,
+      "show-passive-items": true
   },
 
   "clock": {
-    "format": "{:%I:%M %p | %a, %b %d}",
-    "format-alt": "{:%a, %b %d}",
-    "tooltip-format": "<tt>{calendar}</tt>",
-    "calendar": {
-      "mode": "month",
-      "mode-mon-col": 2,
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ba9790'><b><i>{}</i></b></span>",
-        "weekdays": "<span color='#908375'><b>{}</b></span>",
-        "today": "<span color='#fdfcdc'><b>{}</b></span>",
+      "format": "{:%I:%M %p | %a, %b %d}",
+      "format-alt": "{:%a, %b %d}",
+      "tooltip-format": "<tt>{calendar}</tt>",
+      "calendar": {
+          "mode": "month",
+          "mode-mon-col": 2,
+          "on-scroll": 1,
+          "format": {
+              "months": "<span color='#ba9790'><b><i>{}</i></b></span>",
+              "weekdays": "<span color='#908375'><b>{}</b></span>",
+              "today": "<span color='#fdfcdc'><b>{}</b></span>",
+          }
+      },
+      "actions": {
+          "on-click-right": "mode",
+          "on-scroll-up": "shift_up",
+          "on-scroll-down": "shift_down"
       }
-    },
-    "actions": {
-      "on-click-right": "mode",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
   },
 
   "cpu": {
-    "interval": 5,
-    "tooltip": false,
-    "format": "{usage}% "
+      "interval": 5,
+      "tooltip": false,
+      "format": "{usage}%  |"
   },
 
   "memory": {
-    "interval": 20,
-    "tooltip": false,
-    "format": "{used:0.1f}GB "
+      "interval": 20,
+      "tooltip": false,
+      "format": "{used:0.1f}GB "
   },
 
   "temperature": {
-    "interval": 5,
-    "tooltip": false,
-    "format": "{temperatureC}°C",
+      "interval": 5,
+      "tooltip": false,
+      "format": "{temperatureC}°C",
   },
 
   "backlight": {
     // "device": "acpi_video1",
     "interval": 2,
     "tooltip": false,
-    "format": "{percent}% ",
+    "format": "{percent}%  |",
   },
 
   "battery": {
-    "states": {
-      "warning": 20,
-      "critical": 10
-    },
-    "interval": 45,
-    "format": "{capacity}% {icon} ",
-    "format-charging": "{capacity}% 󰂄",
-    "format-plugged": "{capacity}% 󰂅",
-    "format-alt": "{time} {icon}",
-    "format-icons": [
-      "󰂎",
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
-    ]
+      "states": {
+          "warning": 20,
+          "critical": 10
+      },
+      "interval": 45,
+      "format": "{capacity}% {icon} ",
+      "format-charging": "{capacity}% 󰂄",
+      "format-plugged": "{capacity}% 󰂅",
+      "format-alt": "{time} {icon}",
+      "format-icons": [
+          "󰂎",
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹"
+      ]
   },
 
   "network": {
-    "format-wifi": "󰤨",
-    "format-ethernet": "󰈁",
-    "tooltip-format": "{ifname} via {gwaddr} ",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "󰤭",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "tooltip-format": "{essid}"
+      "format-wifi": "󰤨",
+      "format-ethernet": "󰈁",
+      "tooltip-format": "{ifname} via {gwaddr} ",
+      "format-linked": "{ifname} (No IP) ",
+      "format-disconnected": "󰤭",
+      "format-alt": "{ifname}: {ipaddr}/{cidr}",
+      "tooltip-format": "{essid}"
   },
 
   "pulseaudio": {
     // "scroll-step": 1
-    "format": "{volume}% {icon}",
-    "format-muted": "󰖁",
+    "format": "{volume}% {icon} |",
+    "format-muted": "󰖁 |",
     "format-icons": {
-      "headphone": "",
-      "default": [
-        "",
-        "",
-        " "
-      ]
+        "headphone": "",
+        "default": [
+            "",
+            "",
+            " "
+        ]
     },
     "on-click": "pavucontrol"
-  }
+  },
+
+  // Module to call app launcher
+  // With arch icon
+  "custom/launcher": {
+      "format": "󰣇",
+      "on-click": "~/dotfiles/scripts/applauncher.sh",
+      "tooltip": false
+  },
+
+  // Module to call filemanager?
+  "custom/filemanager": {
+      "format": "",
+      "on-click": "~/dotfiles/scripts/filemanager.sh",
+      "tooltip": false
+  },
+
+  // Module to call terminal?
+  "custom/terminal": {
+      "format": "",
+      "on-click": "~/dotfiles/scripts/terminal.sh",
+      "tooltip": false
+  },
 }
