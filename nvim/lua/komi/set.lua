@@ -17,7 +17,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -31,7 +31,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 vim.opt.wrap = true
 
@@ -46,7 +46,7 @@ vim.opt.timeoutlen = 600
 vim.opt.splitright = true
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -67,10 +67,35 @@ vim.opt.pumblend = 10
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.opt.guicursor = "n-v-i-c:block-Cursor"
+
+-- Set highlight on search
+vim.opt.hlsearch = true
+
+-- Diagnostics
+vim.diagnostic.config({
+	virtual_text = false,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.HINT] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+		},
+	},
+	update_in_insert = true,
+	underline = true,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		source = "always",
+	},
+})
+
 -- Configure langmap for russian
 local function escape(str)
-  local escape_chars = [[;,."|\]]
-  return vim.fn.escape(str, escape_chars)
+	local escape_chars = [[;,."|\]]
+	return vim.fn.escape(str, escape_chars)
 end
 
 local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,.]]
@@ -79,35 +104,12 @@ local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
 local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
 
 vim.opt.langmap = vim.fn.join({
-    escape(ru_shift) .. ';' .. escape(en_shift),
-    escape(ru) .. ';' .. escape(en),
-}, ',')
+	escape(ru_shift) .. ";" .. escape(en_shift),
+	escape(ru) .. ";" .. escape(en),
+}, ",")
 -- End langmap configuring
-
--- Set highlight on search
-vim.opt.hlsearch = true
-
--- Diagnostics
-vim.diagnostic.config({
-    virtual_text = false,
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = " ",
-            [vim.diagnostic.severity.WARN] = " ",
-            [vim.diagnostic.severity.HINT] = " ",
-            [vim.diagnostic.severity.INFO] = " ",
-        }
-    },
-    update_in_insert = true,
-    underline = true,
-    severity_sort = true,
-    float = {
-        border = "rounded",
-        source = "always",
-    }
-})
 
 -- Filetypes for hyprlang
 vim.filetype.add({
-    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })

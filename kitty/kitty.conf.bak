@@ -1,0 +1,31 @@
+# No default shortcuts
+clear_all_shortcuts yes
+
+# Fonts
+italic_font VictorMonoNerdFont
+font_size 13.0
+
+# Scrollback
+touch_scroll_multiplier 3.0
+
+# Terminal bell
+enable_audio_bell no
+
+# Window layout
+window_padding_width 0 3
+
+# Color scheme
+background #1a1b26
+foreground #dddddd
+background_opacity .85
+
+# Maps
+
+# Noop
+kitty_mod ctrl+shift
+
+map kitty_mod+h
+map kitty_mod+space show_scrollback
+
+# Cursor
+shell_integration  no-cursor

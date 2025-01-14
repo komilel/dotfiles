@@ -21,6 +21,9 @@ zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 zstyle ":completion:*" menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
+# Bind ctrl+shift+f to tmux sessionizer
+bindkey -s '^[[102;6u' "tmux-sessionizer\n"
+
 # Options for zsh
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -75,7 +78,7 @@ eval "$(fzf --zsh)"
 # Init starship
 eval "$(starship init zsh)"
 
-# bun completions
+# Bun completions
 [ -s "/home/komi/.bun/_bun" ] && source "/home/komi/.bun/_bun"
 
 # bun
@@ -84,3 +87,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # For bootdev
 export PATH="$PATH:$HOME/go/bin"
+
+# Scripts folder in dotfiles
+export PATH="$PATH:$HOME/dotfiles/scripts/"

@@ -1,2 +1,2 @@
 # Launch desired terminal
-alacritty
+kitty

@@ -1,6 +1,6 @@
 * {
     background: {{background}};
-    background-opacity: rgba(0,0,1,0.5);
+    background-opacity: {{background}}c0;
     foreground: {{foreground}};
     current-wallpaper: url("{{wallpaper}}", width);
     cursor: {{cursor}};

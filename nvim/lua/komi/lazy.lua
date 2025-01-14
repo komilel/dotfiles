@@ -429,8 +429,16 @@ require("lazy").setup({
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
 		config = function()
-			require("lspsaga").setup({})
+			require("lspsaga").setup({
+				ui = {
+					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+				},
+			})
 
 			-- Diagnostic jump
 			vim.keymap.set(
@@ -456,10 +464,6 @@ require("lazy").setup({
 			-- vim.keymap.set("n", "gp", "<Cmd>Lspsaga preview_definition<CR>", opts)
 			-- vim.keymap.set("n", "gr", "<Cmd>Lspsaga rename<CR>", opts)
 		end,
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter", -- optional
-			"nvim-tree/nvim-web-devicons", -- optional
-		},
 	},
 
 	{
@@ -893,38 +897,80 @@ require("lazy").setup({
 		end,
 	},
 
-	-- {
-	--     "oxfist/night-owl.nvim",
-	--     lazy = false, -- make sure we load this during startup if it is your main colorscheme
-	--     priority = 1000, -- make sure to load this before all the other start plugins
-	--     config = function()
-	--         -- load the colorscheme here
-	--         require("night-owl").setup({
-	--             bold = true,
-	--             italics = true,
-	--             undercurl = true,
-	--             underline = true,
-	--             transparent_background = true
-	--         })
-	--         vim.cmd.colorscheme("night-owl")
-	--     end,
-	-- },
-
-	{ -- Theme
-		"folke/tokyonight.nvim",
-		lazy = false,
+	-- Trying out catppuccin nvim
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
 		priority = 1000,
-		opts = {},
 		config = function()
-			require("tokyonight").setup({
-				transparent = true,
-				styles = {
-					keywords = { italic = true },
+			require("catppuccin").setup({
+				flavour = "mocha", -- latte, frappe, macchiato, mocha
+				background = { -- :h background
+					light = "latte",
+					dark = "mocha",
 				},
-				lualine_bold = true,
+				transparent_background = true, -- disables setting the background color.
+				show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+				term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+				dim_inactive = {
+					enabled = false, -- dims the background color of inactive window
+					shade = "dark",
+					percentage = 0.15, -- percentage of the shade to apply to the inactive window
+				},
+				no_italic = false, -- Force no italic
+				no_bold = false, -- Force no bold
+				no_underline = false, -- Force no underline
+				styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+					comments = { "italic" }, -- Change the style of comments
+					conditionals = { "italic" },
+					loops = {},
+					functions = {},
+					keywords = {},
+					strings = {},
+					variables = {},
+					numbers = {},
+					booleans = {},
+					properties = {},
+					types = {},
+					operators = {},
+					-- miscs = {}, -- Uncomment to turn off hard-coded styles
+				},
+				color_overrides = {},
+				custom_highlights = {},
+				default_integrations = true,
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					treesitter = true,
+					harpoon = true,
+					lsp_saga = true,
+					neotree = true,
+					native_lsp = {
+						enabled = true,
+						virtual_text = {
+							errors = { "italic" },
+							hints = { "italic" },
+							warnings = { "italic" },
+							information = { "italic" },
+							ok = { "italic" },
+						},
+						underlines = {
+							errors = { "underline" },
+							hints = { "underline" },
+							warnings = { "underline" },
+							information = { "underline" },
+							ok = { "underline" },
+						},
+						inlay_hints = {
+							background = true,
+						},
+					},
+					treesitter_context = true,
+				},
 			})
 
-			vim.cmd([[colorscheme tokyonight-moon]])
+			-- setup must be called before loading
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
 
@@ -938,7 +984,7 @@ require("lazy").setup({
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "tokyonight",
+					theme = "catppuccin",
 				},
 			})
 		end,
@@ -1098,23 +1144,23 @@ require("lazy").setup({
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
 
-			vim.keymap.set("n", "<C-S-N>", function()
+			vim.keymap.set("n", "<leader>hp", function()
 				harpoon:list():prev()
 			end)
-			vim.keymap.set("n", "<C-S-P>", function()
+			vim.keymap.set("n", "<leader>hn", function()
 				harpoon:list():next()
 			end)
 
-			vim.keymap.set("n", "<C-S-H>", function()
+			vim.keymap.set("n", "<leader>h1", function()
 				harpoon:list():select(1)
 			end)
-			vim.keymap.set("n", "<C-S-J>", function()
+			vim.keymap.set("n", "<leader>h2", function()
 				harpoon:list():select(2)
 			end)
-			vim.keymap.set("n", "<C-S-K>", function()
+			vim.keymap.set("n", "<leader>h3", function()
 				harpoon:list():select(3)
 			end)
-			vim.keymap.set("n", "<C-S-L>", function()
+			vim.keymap.set("n", "<leader>h4", function()
 				harpoon:list():select(4)
 			end)
 		end,
@@ -1136,20 +1182,6 @@ require("lazy").setup({
 					mode = "background",
 					rgb_fn = true,
 				},
-			})
-		end,
-	},
-
-	{ -- Cozy terminal (vertical as for me)
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = function()
-			require("toggleterm").setup({
-				size = 50,
-				open_mapping = [[<leader>t]],
-				hide_numbers = true,
-				direction = "float",
-				insert_mappings = false,
 			})
 		end,
 	},
@@ -1461,6 +1493,16 @@ require("lazy").setup({
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
 		ft = { "markdown" },
+	},
+
+	{
+		"christoomey/vim-tmux-navigator",
+		config = function()
+			vim.keymap.set("n", "<C-h", "<cmd>TmuxNavigateLeft")
+			vim.keymap.set("n", "<C-j", "<cmd>TmuxNavigateDown")
+			vim.keymap.set("n", "<C-k", "<cmd>TmuxNavigateUp")
+			vim.keymap.set("n", "<C-l", "<cmd>TmuxNavigateRight")
+		end,
 	},
 
 	-- {
