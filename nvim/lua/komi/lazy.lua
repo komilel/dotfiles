@@ -188,7 +188,7 @@ require("lazy").setup({
 
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", opts = {} },
+			-- { "j-hui/fidget.nvim", opts = {} },
 
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 			-- used for completion, annotations and signatures of Neovim apis
@@ -312,7 +312,7 @@ require("lazy").setup({
 						})
 					end
 
-					require("lsp_signature").on_attach({}, bufnr)
+					-- require("lsp_signature").on_attach({}, bufnr)
 
 					-- The following autocommand is used to enable inlay hints in your
 					-- code, if the language server you are using supports them
@@ -348,7 +348,14 @@ require("lazy").setup({
 				-- clangd = {},
 				-- gopls = {},
 				-- pyright = {},
-				rust_analyzer = {},
+				-- rust_analyzer = {
+				-- 	diagnostics = {
+				-- 		enable = true,
+				-- 		experimental = {
+				-- 			enable = true,
+				-- 		},
+				-- 	},
+				-- },
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -390,41 +397,41 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
-			})
+			-- require("mason-lspconfig").setup({
+			-- 	handlers = {
+			-- 		function(server_name)
+			-- 			local server = servers[server_name] or {}
+			-- 			-- This handles overriding only values explicitly passed
+			-- 			-- by the server configuration above. Useful when disabling
+			-- 			-- certain features of an LSP (for example, turning off formatting for tsserver)
+			-- 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			-- 			require("lspconfig")[server_name].setup(server)
+			-- 		end,
+			-- 	},
+			-- })
 		end,
 	},
 
-	{ -- Icons in lsp hover
-		"onsails/lspkind.nvim",
-		config = function()
-			require("lspkind").setup({
-				mode = "symbol_text",
-			})
-		end,
-	},
+	-- { -- Icons in lsp hover
+	-- 	"onsails/lspkind.nvim",
+	-- 	config = function()
+	-- 		require("lspkind").setup({
+	-- 			mode = "symbol_text",
+	-- 		})
+	-- 	end,
+	-- },
 
-	{ -- Display signature!
-		"ray-x/lsp_signature.nvim",
-		event = "InsertEnter",
-		opts = {
-			bind = true,
-			handler_opts = {
-				border = "rounded",
-			},
-		},
-		-- config = function(_, opts) require'lsp_signature'.setup(opts) end
-	},
+	-- { -- Display signature!
+	-- 	"ray-x/lsp_signature.nvim",
+	-- 	event = "InsertEnter",
+	-- 	opts = {
+	-- 		bind = true,
+	-- 		handler_opts = {
+	-- 			border = "rounded",
+	-- 		},
+	-- 	},
+	-- 	-- config = function(_, opts) require'lsp_signature'.setup(opts) end
+	-- },
 
 	{
 		"nvimdev/lspsaga.nvim",
@@ -437,6 +444,12 @@ require("lazy").setup({
 			require("lspsaga").setup({
 				ui = {
 					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+				},
+				symbol_in_winbar = {
+					enable = false,
+				},
+				lightbulb = {
+					virtual_text = false,
 				},
 			})
 
@@ -472,6 +485,12 @@ require("lazy").setup({
 		---@module "ibl"
 		---@type ibl.config
 		opts = {},
+	},
+
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
 	},
 
 	-- {
@@ -804,28 +823,28 @@ require("lazy").setup({
 			-- See `:help cmp`
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			local lspkind = require("lspkind")
+			-- local lspkind = require("lspkind")
 			luasnip.config.setup({})
 
 			cmp.setup({
 				---@diagnostic disable-next-line: missing-fields
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol_text", -- show only symbol annotations
-						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-						-- can also be a function to dynamically calculate max width such as
-						-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						show_labelDetails = false, -- show labelDetails in menu. Disabled by default
-
-						-- The function below will be called before any actual modifications from lspkind
-						-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-						-- before = function (entry, vim_item)
-						--     ...
-						--     return vim_item
-						-- end
-					}),
-				},
+				-- formatting = {
+				-- 	format = lspkind.cmp_format({
+				-- 		mode = "symbol_text", -- show only symbol annotations
+				-- 		maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				-- 		-- can also be a function to dynamically calculate max width such as
+				-- 		-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+				-- 		ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+				-- 		show_labelDetails = false, -- show labelDetails in menu. Disabled by default
+				--
+				-- 		-- The function below will be called before any actual modifications from lspkind
+				-- 		-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+				-- 		-- before = function (entry, vim_item)
+				-- 		--     ...
+				-- 		--     return vim_item
+				-- 		-- end
+				-- 	}),
+				-- },
 
 				snippet = {
 					expand = function(args)
@@ -891,7 +910,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
-					{ name = "nvim_lsp_signature_help" },
+					-- { name = "nvim_lsp_signature_help" },
 				},
 			})
 		end,
@@ -936,8 +955,12 @@ require("lazy").setup({
 					-- miscs = {}, -- Uncomment to turn off hard-coded styles
 				},
 				color_overrides = {},
-				custom_highlights = {},
-				default_integrations = true,
+				-- custom_highlights = function(colors)
+				-- 	return {
+				-- 		NoiceCmdlinePopupBorder = { bg = colors.overlay0 },
+				-- 	}
+				-- end,
+				default_integrations = false,
 				integrations = {
 					cmp = true,
 					gitsigns = true,
@@ -945,6 +968,9 @@ require("lazy").setup({
 					harpoon = true,
 					lsp_saga = true,
 					neotree = true,
+					telescope = {
+						enabled = true,
+					},
 					native_lsp = {
 						enabled = true,
 						virtual_text = {
@@ -966,6 +992,7 @@ require("lazy").setup({
 						},
 					},
 					treesitter_context = true,
+					noice = true,
 				},
 			})
 
@@ -990,42 +1017,42 @@ require("lazy").setup({
 		end,
 	},
 
-	{ -- Toggling transparency for groups
-		"xiyaowong/transparent.nvim",
-		config = function()
-			require("transparent").setup({
-				groups = {
-					"Normal",
-					"NormalNC",
-					"Comment",
-					"Constant",
-					"Special",
-					"Identifier",
-					"Statement",
-					"PreProc",
-					"Type",
-					"Underlined",
-					"Todo",
-					"String",
-					"Function",
-					"Conditional",
-					"Repeat",
-					"Operator",
-					"Structure",
-					"LineNr",
-					"NonText",
-					"SignColumn",
-					"CursorLine",
-					"CursorLineNr",
-					"StatusLine",
-					"StatusLineNC",
-					"EndOfBuffer",
-				},
-				extra_groups = {}, -- table: additional groups that should be cleared
-				exclude_groups = {}, -- table: groups you don't want to clear
-			})
-		end,
-	},
+	-- { -- Toggling transparency for groups
+	-- 	"xiyaowong/transparent.nvim",
+	-- 	config = function()
+	-- 		require("transparent").setup({
+	-- 			groups = {
+	-- 				"Normal",
+	-- 				"NormalNC",
+	-- 				"Comment",
+	-- 				"Constant",
+	-- 				"Special",
+	-- 				"Identifier",
+	-- 				"Statement",
+	-- 				"PreProc",
+	-- 				"Type",
+	-- 				"Underlined",
+	-- 				"Todo",
+	-- 				"String",
+	-- 				"Function",
+	-- 				"Conditional",
+	-- 				"Repeat",
+	-- 				"Operator",
+	-- 				"Structure",
+	-- 				"LineNr",
+	-- 				"NonText",
+	-- 				"SignColumn",
+	-- 				"CursorLine",
+	-- 				"CursorLineNr",
+	-- 				"StatusLine",
+	-- 				"StatusLineNC",
+	-- 				"EndOfBuffer",
+	-- 			},
+	-- 			extra_groups = {}, -- table: additional groups that should be cleared
+	-- 			exclude_groups = {}, -- table: groups you don't want to clear
+	-- 		})
+	-- 	end,
+	-- },
 
 	{ -- Musthave visualizer for the undos in the buffer
 		"mbbill/undotree",
@@ -1137,10 +1164,10 @@ require("lazy").setup({
 				},
 			})
 
-			vim.keymap.set("n", "<leader>a", function()
+			vim.keymap.set("n", "<leader>ha", function()
 				harpoon:list():add()
 			end)
-			vim.keymap.set("n", "<leader>h", function()
+			vim.keymap.set("n", "<leader>hl", function()
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
 
@@ -1164,10 +1191,6 @@ require("lazy").setup({
 				harpoon:list():select(4)
 			end)
 		end,
-	},
-
-	{ -- Just nvim practicing
-		"ThePrimeagen/vim-be-good",
 	},
 
 	{ -- Useful highlight for the colors!
@@ -1503,6 +1526,37 @@ require("lazy").setup({
 			vim.keymap.set("n", "<C-k", "<cmd>TmuxNavigateUp")
 			vim.keymap.set("n", "<C-l", "<cmd>TmuxNavigateRight")
 		end,
+	},
+
+	{ -- Ui replacement?
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			lsp = {
+				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				},
+			},
+			-- you can enable a preset for easier configuration
+			presets = {
+				bottom_search = true, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
+				long_message_to_split = true, -- long messages will be sent to a split
+				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+				lsp_doc_border = false, -- add a border to hover docs and signature help
+			},
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			-- "rcarriga/nvim-notify",
+		},
 	},
 
 	-- {

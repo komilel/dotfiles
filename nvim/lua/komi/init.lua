@@ -5,13 +5,15 @@ require("komi.lazy")
 -- Autocommands
 -- Highlight when yanking (copying) text
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
+
+-- vim.api.nvim_create_autocmd()
 
 -- Hyprlang LSP
 -- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
