@@ -12,3 +12,11 @@ end, { silent = true, buffer = bufnr })
 vim.keymap.set("n", "<leader>rd", function()
 	vim.cmd.RustLsp("renderDiagnostic")
 end, { silent = true, buffer = bufnr })
+
+vim.keymap.set("n", "<leader>re", function()
+	vim.cmd.RustLsp("explainError")
+end, { silent = true, buffer = bufnr })
+
+vim.keymap.set("n", "<leader>od", function()
+	vim.cmd.RustLsp("openDocs")
+end, { silent = true, buffer = bufnr })

@@ -105,7 +105,7 @@
   },
 
   "cpu": {
-      "interval": 5,
+      "interval": 1,
       "tooltip": false,
       "format": "{usage}%  |"
   },
@@ -134,7 +134,7 @@
           "warning": 20,
           "critical": 10
       },
-      "interval": 45,
+      "interval": 10,
       "format": "{capacity}% {icon} ",
       "format-charging": "{capacity}% 󰂄",
       "format-plugged": "{capacity}% 󰂅",
@@ -184,20 +184,6 @@
   "custom/launcher": {
       "format": "󰣇",
       "on-click": "~/dotfiles/scripts/applauncher.sh",
-      "tooltip": false
-  },
-
-  // Module to call filemanager?
-  "custom/filemanager": {
-      "format": "",
-      "on-click": "~/dotfiles/scripts/filemanager.sh",
-      "tooltip": false
-  },
-
-  // Module to call terminal?
-  "custom/terminal": {
-      "format": "",
-      "on-click": "~/dotfiles/scripts/terminal.sh",
       "tooltip": false
   },
 }

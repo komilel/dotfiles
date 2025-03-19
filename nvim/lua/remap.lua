@@ -1,3 +1,6 @@
+-- General remaps
+-- For plugin specific remaps see nvim/lua/plugins dir
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

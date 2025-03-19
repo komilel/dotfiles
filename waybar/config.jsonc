@@ -10,17 +10,17 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position
-    "margin-top": 2,
-    "margin-left": 3,
-    "margin-right": 3,
-    "margin-bottom": 2,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
     // "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 0, // Gaps between modules
 
-    "include": ["~/dotfiles/waybar/modules.jsonc"],
-
     "reload_style_on_change": true,
+
+    "include": ["~/dotfiles/waybar/modules.jsonc"],
 
     "modules-left": [
         "custom/launcher",
@@ -30,11 +30,11 @@
 
     "modules-center": [
         "clock",
-        "hyprland/language",
     ],
 
     "modules-right": [
         "group/stats",
+        "hyprland/language",
         "tray",
     ],
 }

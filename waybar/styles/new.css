@@ -27,14 +27,14 @@ __        __          _                      _         _
 window#waybar {
     background-color: @background-saturated;
     box-shadow: inset 0 0 0.4em -0.1em @color1;
-    border-radius: 1.3em;
+    border-radius: 0;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
-window#waybar>box {
-    padding: 0em 0.5em;
-}
+/* window#waybar>box { */
+/*     padding: 0em 0.5em; */
+/* } */
 
 #custom-launcher {
     color: @color2;
@@ -117,10 +117,9 @@ window#waybar>box {
     color: @color3;
     padding: 0em 0.5em;
     margin: 0.3em 0.5em;
-    border-top: solid 0.125em @color3;
+    /* border-top: solid 0.125em @color3; */
     border-bottom: solid 0.125em @color3;
     border-radius: 0.5em;
-    /* font-size: 12px; */
     opacity: 1.0;
 }
 

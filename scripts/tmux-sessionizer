@@ -6,7 +6,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/ ~/Documents ~/gits ~/wbdev ~/Projs -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/ ~/Documents ~/gits ~/wbdev ~/Documents/Uni ~/Projs -mindepth 1 -maxdepth 3 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

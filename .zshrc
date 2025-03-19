@@ -75,8 +75,8 @@ eval "$(zoxide init zsh --cmd cd)"
 # Integrate fzf
 eval "$(fzf --zsh)"
 
-# Init starship
-eval "$(starship init zsh)"
+# # Init starship
+# eval "$(starship init zsh)"
 
 # Bun completions
 [ -s "/home/komi/.bun/_bun" ] && source "/home/komi/.bun/_bun"
@@ -90,3 +90,14 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Scripts folder in dotfiles
 export PATH="$PATH:$HOME/dotfiles/scripts/"
+
+# pnpm
+export PNPM_HOME="/home/komi/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# Init oh my posh
+eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/catppuccin_mocha.omp.json)"

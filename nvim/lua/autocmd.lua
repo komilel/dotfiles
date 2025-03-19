@@ -1,7 +1,3 @@
-require("komi.set")
-require("komi.remap")
-require("komi.lazy")
-
 -- Autocommands
 -- Highlight when yanking (copying) text
 --  See `:help vim.highlight.on_yank()`

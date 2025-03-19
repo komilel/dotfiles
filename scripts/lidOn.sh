@@ -1,10 +1,10 @@
 # Script triggered on lid switch
 
-# Kill hypridle to avoid conflicts
-pidof hypridle && killall hypridle
+# If no hypridle, lock
+pidof hypridle || hyprlock
 
 # If hyprlock isn't running, trigger it
-pidof hyprlock || (hyprlock && sleep 7)
+# pidof hyprlock || hyprlock
 
 # Suspend the system
 systemctl suspend

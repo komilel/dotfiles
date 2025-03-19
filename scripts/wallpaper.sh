@@ -22,7 +22,7 @@ case $1 in
     "init")
         # Wallpaper initialisation on hyprland startup
         if [ -f "$cache_wallpaper" ]; then
-            wallust run -i background "$cache_wallpaper"
+            wallust run -I background "$cache_wallpaper"
             swww img "$cache_wallpaper" \
                 --transition-type="$transition_type" \
                 --transition-fps=$transition_fps \
@@ -44,7 +44,7 @@ case $1 in
         fi
         
         # Change color scheme
-        wallust run -i background "$HOME/Wallpapers/$selected"
+        wallust run -I background "$HOME/Wallpapers/$selected"
 
         # Cache wallpaper
         echo "$HOME/Wallpapers/$selected" > "$cache_wallpaper"
@@ -66,7 +66,7 @@ case $1 in
         random_wallpaper=$(find ~/Wallpapers -maxdepth 1 -type f | shuf -n 1)
 
         # Random wallpaper change
-        wallust run -i background "$random_wallpaper"
+        wallust run -I background "$random_wallpaper"
         
         # Cache wallpaper
         echo "$random_wallpaper" > "$cache_wallpaper"

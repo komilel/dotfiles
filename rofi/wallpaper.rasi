@@ -28,12 +28,12 @@ configuration {
 
 // Window
 window {
-    width: 935px;
+    width: 1160px;
     margin: 2px;
     padding: 0px;
     border: 1px;
     border-radius: 10px;
-    border-color: @color7;
+    border-color: transparent;
     background-color: transparent;
     transparency: "real";
     location: center;
@@ -71,7 +71,7 @@ entry {
 
 listview {
     columns: 1;
-    lines: 6;
+    lines: 5;
     cycle: true;
     spacing: 3px;
     border: 0px;
@@ -94,7 +94,7 @@ element normal {
 }
 
 element selected {
-    // background-color: #a88080c0;
+    background-color: @foreground;
     border: 1px;
     border-color: @color9;
     text-color: @foreground;
@@ -118,7 +118,7 @@ element-icon {
     cursor: inherit;
     vertical-align: 0.5;
     horizontal-align: 0.5;
-    size: 150px;
+    size: 225px;
 }
 
 // Messages
