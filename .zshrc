@@ -9,6 +9,9 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Load completions
 autoload -U compinit && compinit
 
+# Emacs keys
+bindkey -e
+
 # Plugins
 zinit light Aloxaf/fzf-tab
 zinit light zdharma-continuum/fast-syntax-highlighting
@@ -100,4 +103,4 @@ esac
 # pnpm end
 
 # Init oh my posh
-eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/catppuccin_mocha.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/probua.minimal.omp.json)"

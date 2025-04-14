@@ -96,7 +96,6 @@ element normal {
 element selected {
     background-color: @foreground;
     border: 1px;
-    border-color: @color9;
     text-color: @foreground;
 }
 

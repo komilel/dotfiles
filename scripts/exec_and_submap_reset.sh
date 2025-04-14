@@ -4,7 +4,7 @@
 # Created to immediately exit submap after wanted binds
 
 # Execute the cmd
-"$1" &
+$1 &
 
 # Exit the submap
 hyprctl dispatch submap reset

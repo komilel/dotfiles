@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# Tmux sessionizer script made by Primeagen unchanged except for dirs
+# Tmux sessionizer script made by Primeagen but changed a bit
 # Link: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+# Launch nvim in current dir
+vim_cmd="nvim ."
 
 if [[ $# -eq 1 ]]; then
     selected=$1
@@ -16,13 +19,10 @@ fi
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
-    exit 0
-fi
-
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]] || ! tmux has-session -t=$selected_name 2> /dev/null; then
+    tmux new-session -ds $selected_name -c $selected $vim_cmd
+    tmux new-window -c $selected
+    tmux select-window -t 1
 fi
 
 tmux attach -t $selected_name
