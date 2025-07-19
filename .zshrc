@@ -17,6 +17,7 @@ zinit light Aloxaf/fzf-tab
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
+zinit snippet https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 
 # Styles
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
@@ -26,6 +27,9 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Bind ctrl+shift+f to tmux sessionizer
 bindkey -s '^[[102;6u' "tmux-sessionizer\n"
+
+# Bind ctrl+shift+e to yazi
+bindkey -s '^[[101;6u' "yazi\n"
 
 # Options for zsh
 HISTSIZE=5000
@@ -44,18 +48,19 @@ alias cdl='cd -'
 alias ls='ls --color'
 alias c='clear'
 alias dfs='cd ~/dotfiles'
-alias dfn='dfs && nv .'
+alias dfn='dfs && v .'
 alias lc='lsd'
 alias llc='lsd -al'
 alias sn='shutdown now'
 alias rb='reboot'
-alias nv='nvim'
+alias v='nvim'
 alias sudo='sudo '
 alias hctl='hyprctl'
 alias nc='nmcli connection up'
 alias nd='nmcli connection down'
 alias nuke='rm -rf'
 alias nukee='sudo rm -rf'
+
 alias get_cw='cat ~/.cache/current_wallpaper'
 
 # Aliases for yay
@@ -64,12 +69,9 @@ alias yf='yay -Ss'
 alias yr='yay -R'
 alias yrc='yay -Rns'
 
-# Aliases for dotnet
-alias dnr='dotnet run'
-
 zinit cdreplay -q
 
-# Load pywal theme to new terminal instances
+# Load wallust theme to new terminal instances
 cat ~/.cache/wallust/sequences
 
 # Init zoxide (replace cd command)
@@ -77,9 +79,6 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # Integrate fzf
 eval "$(fzf --zsh)"
-
-# # Init starship
-# eval "$(starship init zsh)"
 
 # Bun completions
 [ -s "/home/komi/.bun/_bun" ] && source "/home/komi/.bun/_bun"

@@ -1,0 +1,34 @@
+[mgr]
+title_format = ""
+
+[preview]
+ueberzug_scale = 0.75
+ueberzug_offset = [ 30, 1.5, 0, 0 ]
+
+[opener]
+open-default = [
+    { run = 'xdg-open "$@"', desc = "Open" }
+]
+edit = [
+    { run = '$EDITOR "$@"', block = true, desc = "Edit" }
+]
+open-svg = [
+    { run = 'inkscape "$@"', desc = "Open svg" }
+]
+
+[open]
+prepend_rules = [
+    { name = "*.svg", use = "open-svg" }
+]
+
+[plugin]
+prepend_previewers = [
+	# Archive previewer
+	{ mime = "application/*zip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+    { mime = "application/x-xz",            run = "ouch" },
+	{ mime = "application/xz",              run = "ouch" },
+]

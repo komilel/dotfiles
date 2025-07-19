@@ -107,7 +107,7 @@
   "cpu": {
       "interval": 1,
       "tooltip": false,
-      "format": "{usage}%  |"
+      "format": "{usage}%    |"
   },
 
   "memory": {
@@ -126,7 +126,7 @@
     // "device": "acpi_video1",
     "interval": 2,
     "tooltip": false,
-    "format": "{percent}%  |",
+    "format": "{percent}%    |",
   },
 
   "battery": {
@@ -135,7 +135,7 @@
           "critical": 10
       },
       "interval": 10,
-      "format": "{capacity}% {icon} ",
+      "format": "{capacity}% {icon}",
       "format-charging": "{capacity}% 󰂄",
       "format-plugged": "{capacity}% 󰂅",
       "format-alt": "{time} {icon}",
@@ -166,14 +166,14 @@
 
   "pulseaudio": {
     // "scroll-step": 1
-    "format": "{volume}% {icon} |",
+    "format": "{volume}% {icon}  |",
     "format-muted": "󰖁 |",
     "format-icons": {
-        "headphone": "",
+        "headphone": "",
         "default": [
-            "",
-            "",
-            " "
+            "󰕿",
+            "󰖀",
+            "󰕾"
         ]
     },
     "on-click": "pavucontrol"
