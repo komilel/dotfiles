@@ -1,3 +1,7 @@
+# Archived
+NO LONGER USE ARCH
+MOVED TO NIXOS, SEE [NIXOS DOTFILES](https://github.com/komilel/yanzi)
+
 # Info
 Dots for Komi's laptop
 - **Distro** -> Arch
